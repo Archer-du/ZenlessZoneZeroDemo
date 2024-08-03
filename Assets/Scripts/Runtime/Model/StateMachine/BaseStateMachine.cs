@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace ZZZDemo.Runtime.Model.StateMachine
+{
+    public abstract class BaseStateMachine<T, TE> where T : BaseState<TE> where TE : Enum
+    {
+        public T PreviousState { get; private set; }
+        public T CurrentState { get; private set; }
+
+        protected readonly Dictionary<TE, T> statesMap;
+        
+        public bool debugMode = true;
+
+        public T this[TE eState]
+        {
+            get => statesMap[eState];
+            set => statesMap.TryAdd(eState, value);
+        }
+
+        internal BaseStateMachine()
+        {
+            statesMap = new Dictionary<TE, T>();
+        }
+
+        internal void Initialize(TE startingState)
+        {
+            PreviousState = this[startingState];
+            CurrentState = this[startingState];
+            CurrentState.Enter();
+        }
+
+        internal void ChangeState(TE newState)
+        {
+            CurrentState.Exit();
+            PreviousState = CurrentState;
+            CurrentState = this[newState];
+            CurrentState.Enter();
+            if (debugMode)
+            {
+                Debug.Log($"{PreviousState} ==> {CurrentState}");
+            }
+        }
+
+        internal void Update(float deltaTime)
+        {
+            CurrentState?.Update(deltaTime);
+            CurrentState?.CheckTransition();
+        }
+    }
+}

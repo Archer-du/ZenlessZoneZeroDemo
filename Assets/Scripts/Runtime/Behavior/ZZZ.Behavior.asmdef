@@ -1,0 +1,17 @@
+{
+    "name": "ZZZ.Behavior",
+    "rootNamespace": "ZZZDemo",
+    "references": [
+        "GUID:d388594ef2bd2ad42aa8d9800743eef2",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
