@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ZZZDemo.Runtime.Behavior.View;
 using ZZZDemo.Runtime.Behavior.Character.Input;
 using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.StateMachine;
@@ -15,7 +16,10 @@ namespace ZZZDemo.Runtime.Behavior.Character
         public CharacterController characterController;
 
         private PlayerController playerController;
+
         private InputSystemProxy inputSystemProxy;
+        private ViewProxy viewProxy;
+        
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -23,7 +27,9 @@ namespace ZZZDemo.Runtime.Behavior.Character
             characterController = GetComponent<CharacterController>();
 
             inputSystemProxy = new InputSystemProxy(playerInput.actions);
-            playerController = new PlayerController(inputSystemProxy);
+            viewProxy = new ViewProxy(animator);
+            
+            playerController = new PlayerController(inputSystemProxy, viewProxy);
         }
 
         void Start()
@@ -35,6 +41,9 @@ namespace ZZZDemo.Runtime.Behavior.Character
             // input update phase
             inputSystemProxy.Update(Time.deltaTime);
             
+            // animation update phase
+            viewProxy.Update(Time.deltaTime);
+            
             // core logic update phase
             playerController.Update(Time.deltaTime);
         }
@@ -44,14 +53,17 @@ namespace ZZZDemo.Runtime.Behavior.Character
             // apply root motion
             transform.position += animator.deltaPosition;
             transform.rotation *= animator.deltaRotation;
+            // animator.ApplyBuiltinRootMotion();
         }
 
         private void OnEnable()
         {
+            playerInput.actions.Enable();
         }
 
         private void OnDisable()
         {
+            playerInput.actions.Enable();
         }
     }
 
