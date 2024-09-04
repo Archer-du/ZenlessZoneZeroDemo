@@ -12,6 +12,7 @@ namespace ZZZDemo.Runtime.Model.Utils
 
         public static float GetRelativeInputAngle(Vector2 inputVector)
         {
+            if (inputVector == Vector2.zero) return 0;
             inputVector = inputVector.normalized;
             float angleInRadians = Mathf.Atan2(inputVector.y, inputVector.x);
             float angleInDegrees = Mathf.Rad2Deg * angleInRadians;

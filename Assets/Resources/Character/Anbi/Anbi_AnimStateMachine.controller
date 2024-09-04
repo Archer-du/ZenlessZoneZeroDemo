@@ -201,6 +201,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_StateMachine: {fileID: -7831043701706087839}
     m_Position: {x: -320, y: 250, z: 0}
+  - serializedVersion: 1
+    m_StateMachine: {fileID: -7831043701706087839}
+    m_Position: {x: -320, y: 260, z: 0}
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
@@ -447,6 +450,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: WalkToRunBlend
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -538,10 +547,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Walking
-    m_EventTreshold: 0
+  m_Conditions: [{m_ConditionMode: 2, m_ConditionEvent: Walking, m_EventTreshold: 0}]
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6176297210684280453}
   m_Solo: 0
@@ -585,10 +591,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Walking
-    m_EventTreshold: 0
+  m_Conditions: [{m_ConditionMode: 1, m_ConditionEvent: Walking, m_EventTreshold: 0}]
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2104093100819918430}
   m_Solo: 0
