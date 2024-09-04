@@ -11,7 +11,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine
         }
         internal void Update(float deltaTime)
         {
-            UpdateLogic(deltaTime);
+            TickLogic(deltaTime);
             CheckTransition();
         }
         internal virtual void Enter() {}
@@ -20,7 +20,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine
 
 
         protected virtual bool CheckTransition() => false;
-        protected virtual void UpdateLogic(float deltaTime) {}
+        protected virtual void TickLogic(float deltaTime) {}
 
         public override string ToString()
         {

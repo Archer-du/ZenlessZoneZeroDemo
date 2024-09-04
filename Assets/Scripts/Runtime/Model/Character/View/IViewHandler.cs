@@ -22,6 +22,7 @@ namespace View
     public interface IAnimationComponent
     {
         public IAnimParamBase<bool> WalkingParam { get; }
+        public IAnimParamBase<bool> RunningParam { get; }
         public IAnimParamBase<float> WalkBlendParam { get; }
     }
 }

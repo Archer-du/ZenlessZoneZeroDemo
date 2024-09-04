@@ -21,6 +21,7 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             characterFSM = new CharacterStateMachine();
             characterFSM[ECharacterState.Idle] = new CharacterIdleState(this, characterFSM);
             characterFSM[ECharacterState.Walk] = new CharacterWalkState(this, characterFSM);
+            characterFSM[ECharacterState.Run] = new CharacterRunState(this, characterFSM);
             
             characterFSM.Initialize(ECharacterState.Idle);
         }

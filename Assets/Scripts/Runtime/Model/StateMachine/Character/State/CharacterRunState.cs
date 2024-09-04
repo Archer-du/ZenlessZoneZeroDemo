@@ -4,27 +4,23 @@ using ZZZDemo.Runtime.Model.Utils;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
-    internal class CharacterWalkState : CharacterBaseState
+    internal class CharacterRunState : CharacterBaseState
     {
-        private float walkToRunFactor = 0;
-        internal CharacterWalkState(PlayerController controller, CharacterStateMachine stateMachine) : base(controller, stateMachine,ECharacterState.Walk)
+        private Vector2Int lastRunDirection;
+        internal CharacterRunState(PlayerController controller, CharacterStateMachine stateMachine) : base(controller, stateMachine,ECharacterState.Run)
         {
         }
-
         internal override void Enter()
         {
             base.Enter();
-            walkToRunFactor = 0;
-            View.Animation.WalkingParam.Set(true);
-            View.Animation.WalkBlendParam.Set(0);
+            View.Animation.RunningParam.Set(true);
         }
 
         internal override void Exit()
         {
             base.Exit();
-            View.Animation.WalkingParam.Set(false);
+            View.Animation.RunningParam.Set(false);
         }
-
         protected override void TickLogic(float deltaTime)
         {
             base.TickLogic(deltaTime);
@@ -41,13 +37,9 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 const float rotateResponseTime = 0.04f;
                 View.Movement.RotateCharacterHorizontal(angle * (deltaTime / rotateResponseTime));
             }
-
-            // TODO: config
-            const float walkToRunSpeed = 0.75f;
-            walkToRunFactor += walkToRunSpeed * deltaTime;
-            View.Animation.WalkBlendParam.Set(walkToRunFactor);
+            if (controller.input.MoveJoyStick.Value != Vector2.zero)
+                lastRunDirection = Input.MoveJoyStick.Direction;
         }
-        
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
@@ -55,12 +47,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             {
                 FSM.ChangeState(ECharacterState.Idle);
                 return true;
-            }
-            // TODO: config
-            const float walkToRunThreshold = 0.75f;
-            if (walkToRunFactor > walkToRunThreshold)
-            {
-                FSM.ChangeState(ECharacterState.Run);
             }
             return false;
         }

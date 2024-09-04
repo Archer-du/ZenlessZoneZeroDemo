@@ -56,11 +56,14 @@ namespace ZZZDemo.Runtime.Behavior.View
         {
             this.animator = animator;
             walking = new BoolAnimParam(animator, "Walking");
+            running = new BoolAnimParam(animator, "Running");
             walkBlend = new FloatAnimParam(animator, "WalkBlend");
         }
 
         public IAnimParamBase<bool> WalkingParam => walking;
         private BoolAnimParam walking;
+        public IAnimParamBase<bool> RunningParam => running;
+        private BoolAnimParam running;
         public IAnimParamBase<float> WalkBlendParam => walkBlend;
         private FloatAnimParam walkBlend;
     }

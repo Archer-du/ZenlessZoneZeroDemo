@@ -13,9 +13,9 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             base.Enter();
         }
-        protected override void UpdateLogic(float deltaTime)
+        protected override void TickLogic(float deltaTime)
         {
-            base.UpdateLogic(deltaTime);
+            base.TickLogic(deltaTime);
         }
 
         internal override void Exit()
