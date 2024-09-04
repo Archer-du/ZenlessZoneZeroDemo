@@ -4,23 +4,23 @@ namespace ZZZDemo.Runtime.Model.Character.Input
 {
     public interface IInputHandler
     {
-        public IJoyStickHandler MoveJoyStick { get; }
-        public ICameraHandler LookAt { get; }
-        public IButtonHandler EvadeButton { get; }
+        public IVirtualJoyStick MoveJoyStick { get; }
+        public IVirtualCamera LookAt { get; }
+        public IVirtualButton EvadeButton { get; }
     }
     
-    public interface IJoyStickHandler
+    public interface IVirtualJoyStick
     {
         public Vector2 Value { get; }
         public Vector2Int Direction { get; }
     }
 
-    public interface ICameraHandler : IJoyStickHandler
+    public interface IVirtualCamera : IVirtualJoyStick
     {
         public Vector3 GetLookAtDirection();
     }
 
-    public interface IButtonHandler
+    public interface IVirtualButton
     {
         public bool Requesting();
 

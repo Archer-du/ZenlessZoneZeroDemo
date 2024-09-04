@@ -8,7 +8,7 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
     
     public class InputSystemProxy : IInputHandler
     {
-        internal struct VirtualJoyStick : IJoyStickHandler
+        internal struct VirtualJoyStick : IVirtualJoyStick
         {
             public Vector2 Value => inputAction.ReadValue<Vector2>().normalized;
             public Vector2Int Direction
@@ -27,7 +27,7 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
             }
         }
         
-        internal struct CameraLookAt : IJoyStickHandler, ICameraHandler
+        internal struct CameraLookAt : IVirtualCamera
         {
             public Vector2 Value => inputAction.ReadValue<Vector2>().normalized;
             public Vector2Int Direction
@@ -50,7 +50,7 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
             }
         }
 
-        internal struct VirtualButton : IButtonHandler
+        internal struct VirtualButton : IVirtualButton
         {
             internal string Name => inputAction.name;
 
@@ -99,11 +99,11 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
             }
         }
 
-        public IJoyStickHandler MoveJoyStick => moveJoyStick;
+        public IVirtualJoyStick MoveJoyStick => moveJoyStick;
         private VirtualJoyStick moveJoyStick;
-        public ICameraHandler LookAt => lookJoyStick;
+        public IVirtualCamera LookAt => lookJoyStick;
         private CameraLookAt lookJoyStick;
-        public IButtonHandler EvadeButton => evadeButton;
+        public IVirtualButton EvadeButton => evadeButton;
         private VirtualButton evadeButton;
         
         

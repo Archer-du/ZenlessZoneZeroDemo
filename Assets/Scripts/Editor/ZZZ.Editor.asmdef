@@ -3,7 +3,8 @@
     "rootNamespace": "ZZZDemo",
     "references": [
         "GUID:f2195631c92a6104ab3a2fa51b9bb1ca",
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:d388594ef2bd2ad42aa8d9800743eef2"
     ],
     "includePlatforms": [
         "Editor"
