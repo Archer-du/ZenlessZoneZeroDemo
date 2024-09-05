@@ -22,6 +22,7 @@ namespace ZZZDemo.Runtime.Behavior.View
             characterTransform.rotation = Quaternion.AngleAxis(angle, Vector3.up) * characterTransform.rotation;
         }
     }
+    
     internal class AnimationComponent : IAnimationComponent
     {
         internal class AnimParamBase
@@ -91,7 +92,6 @@ namespace ZZZDemo.Runtime.Behavior.View
                    Animator.StringToHash("TurnBack_NonStop");
         }
     }
-    
     
     public class ViewProxy : IViewHandler
     {

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
+using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
     internal class CharacterIdleState : CharacterBaseState
     {
-        internal CharacterIdleState(PlayerController controller, CharacterStateMachine stateMachine) : base(controller, stateMachine, ECharacterState.Idle)
+        internal CharacterIdleState(CharacterController controller, CharacterStateMachine stateMachine) : base(controller, stateMachine, ECharacterState.Idle)
         {
         }
 
@@ -13,14 +14,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             if (base.CheckTransition()) return true;
             
-            if (controller.input.MoveJoyStick.Value != Vector2.zero 
-                && controller.turnbackWindowTimer > 0 
-                && controller.input.MoveJoyStick.Direction == - controller.lastRunDirection)
+            if (controller.IsMoving && controller.IsSharpTurn)
             {
                 FSM.ChangeState(ECharacterState.Run);
                 return true;
             }
-            if (controller.input.MoveJoyStick.Value != Vector2.zero)
+            if (controller.IsMoving && !controller.IsSharpTurn)
             {
                 FSM.ChangeState(ECharacterState.Walk);
                 return true;

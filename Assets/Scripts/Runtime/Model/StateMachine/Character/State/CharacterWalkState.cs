@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Utils;
+using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
     internal class CharacterWalkState : CharacterMoveState
     {
         private float walkToRunFactor = 0;
-        internal CharacterWalkState(PlayerController controller, CharacterStateMachine stateMachine) : base(controller, stateMachine,ECharacterState.Walk)
+        internal CharacterWalkState(CharacterController controller, CharacterStateMachine stateMachine) : base(controller, stateMachine,ECharacterState.Walk)
         {
         }
 

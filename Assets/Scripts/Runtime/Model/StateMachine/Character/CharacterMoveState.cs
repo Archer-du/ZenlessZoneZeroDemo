@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Utils;
+using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character
 {
     internal abstract class CharacterMoveState : CharacterBaseState
     {
-        protected CharacterMoveState(PlayerController controller, CharacterStateMachine stateMachine, ECharacterState type) : base(controller, stateMachine, type)
+        protected CharacterMoveState(CharacterController controller, CharacterStateMachine stateMachine, ECharacterState type) : base(controller, stateMachine, type)
         {
         }
 
@@ -22,7 +23,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
-            if (controller.input.MoveJoyStick.Value == Vector2.zero)
+            if (!controller.IsMoving)
             {
                 FSM.ChangeState(ECharacterState.Idle);
                 return true;
@@ -31,10 +32,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character
             return false;
         }
 
-        protected virtual bool UseSmoothRotate() => controller.input.MoveJoyStick.Value != Vector2.zero;
+        protected virtual bool UseSmoothRotate() => true;
 
         private void SmoothRotate(float deltaTime)
         {
+            if (!controller.IsMoving) return;
+            
             var targetDir = MovementUtils.GetHorizontalProjectionVector(Input.LookAt.GetLookAtDirection());
             targetDir = MovementUtils.GetRotationByAxis(
                 MovementUtils.GetRelativeInputAngle(Input.MoveJoyStick.Value), Vector3.up) * targetDir;

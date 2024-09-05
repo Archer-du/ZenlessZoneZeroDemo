@@ -3,26 +3,23 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using ZZZDemo.Runtime.Behavior.View;
 using ZZZDemo.Runtime.Behavior.Character.Input;
-using ZZZDemo.Runtime.Model.Character.Controller;
-using ZZZDemo.Runtime.Model.StateMachine;
-using ZZZDemo.Runtime.Model.Utils;
+using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 
 namespace ZZZDemo.Runtime.Behavior.Character
 {
-    [RequireComponent(typeof(Animator), typeof(PlayerInput), typeof(CharacterController))]
+    [RequireComponent(typeof(Animator), typeof(PlayerInput))]
     public class CharacterBehavior : MonoBehaviour
     {
         public Animator animator;
         public PlayerInput playerInput;
-        public CharacterController characterController;
         
-        private PlayerController playerController;
+        private CharacterController characterController;
 
         private InputSystemProxy inputSystemProxy;
         private ViewProxy viewProxy;
         
 #if UNITY_EDITOR
-        public PlayerController PlayerController => playerController;
+        public CharacterController CharacterController => characterController;
         public InputSystemProxy InputSystemProxy => inputSystemProxy;
         private ViewProxy ViewProxy => viewProxy;
 #endif
@@ -30,12 +27,11 @@ namespace ZZZDemo.Runtime.Behavior.Character
         {
             animator = GetComponent<Animator>();
             playerInput = GetComponent<PlayerInput>();
-            characterController = GetComponent<CharacterController>();
 
             inputSystemProxy = new InputSystemProxy(playerInput.actions);
             viewProxy = new ViewProxy(transform, animator);
             
-            playerController = new PlayerController(inputSystemProxy, viewProxy);
+            characterController = new CharacterController(inputSystemProxy, viewProxy);
         }
 
         void Start()
@@ -51,14 +47,11 @@ namespace ZZZDemo.Runtime.Behavior.Character
             viewProxy.Update(Time.deltaTime);
             
             // core logic update phase
-            playerController.Update(Time.deltaTime);
+            characterController.Update(Time.deltaTime);
         }
 
         private void OnAnimatorMove()
         {
-            // apply root motion
-            // transform.position += animator.deltaPosition;
-            // transform.rotation *= animator.deltaRotation;
             animator.ApplyBuiltinRootMotion();
         }
 

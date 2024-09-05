@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Utils;
+using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
+using TimerHandle = ZZZDemo.Runtime.Model.Character.Controller.TimerHandle;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
     internal class CharacterRunState : CharacterMoveState
     {
-        internal CharacterRunState(PlayerController controller, CharacterStateMachine stateMachine) : base(controller, stateMachine,ECharacterState.Run)
+        private TimerHandle turnBackTimerHandle;
+        internal CharacterRunState(CharacterController controller, CharacterStateMachine stateMachine) : base(controller, stateMachine,ECharacterState.Run)
         {
         }
         internal override void Enter()
         {
             base.Enter();
             View.Animation.RunningParam.Set(true);
-            if (controller.turnbackWindowTimer > 0 
-                && controller.input.MoveJoyStick.Direction == - controller.lastRunDirection)
+            if (controller.IsSharpTurn)
             {
                 View.Animation.TurnBackParam.Set();
             }
@@ -23,14 +25,16 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             base.Exit();
             View.Animation.RunningParam.Set(false);
-            // TODO: 
-            controller.turnbackWindowTimer = 0.2f;
+            controller.canTurnBack = true;
+            // TODO: config
+            turnBackTimerHandle?.Invalidate();
+            turnBackTimerHandle = controller.timerManager.SetTimer(0.2f, () => { controller.canTurnBack = false; });
         }
         protected override void TickLogic(float deltaTime)
         {
             base.TickLogic(deltaTime);
 
-            if (controller.input.MoveJoyStick.Value != Vector2.zero)
+            if (controller.IsMoving)
                 controller.lastRunDirection = Input.MoveJoyStick.Direction;
         }
         protected override bool CheckTransition()
@@ -40,9 +44,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             return false;
         }
 
-        protected override bool UseSmoothRotate()
-        {
-            return base.UseSmoothRotate() && !View.Animation.CheckAnimatedRootRotation();
-        }
+        protected override bool UseSmoothRotate() => !View.Animation.CheckAnimatedRootRotation();
     }
 }
