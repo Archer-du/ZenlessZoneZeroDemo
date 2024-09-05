@@ -17,9 +17,13 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
         #region Locomotion
         internal bool IsMoving => input.MoveJoyStick.Value != Vector2.zero;
         internal bool IsSharpTurn => canTurnBack && input.MoveJoyStick.Direction == -lastRunDirection;
+        internal bool IsEvading => input.EvadeButton.Requesting() && evadeTimesRemain > 0;
 
+        
         internal Vector2Int lastRunDirection;
         internal bool canTurnBack = false;
+        // TODO: config
+        internal int evadeTimesRemain = 2;
 
         #endregion
         
@@ -32,9 +36,16 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             characterFSM[ECharacterState.Idle] = new CharacterIdleState(this, characterFSM);
             characterFSM[ECharacterState.Walk] = new CharacterWalkState(this, characterFSM);
             characterFSM[ECharacterState.Run] = new CharacterRunState(this, characterFSM);
+            characterFSM[ECharacterState.Evade] = new CharacterEvadeState(this, characterFSM);
             characterFSM.Initialize(ECharacterState.Idle);
 
             timerManager = new CharacterTimerManager(this);
+
+            // TODO: config
+            timerManager.SetTimer(4f, () =>
+            {
+                if (evadeTimesRemain < 2) evadeTimesRemain++;
+            }, true);
         }
         
         public void Update(float deltaTime)

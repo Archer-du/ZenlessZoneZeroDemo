@@ -24,6 +24,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 FSM.ChangeState(ECharacterState.Walk);
                 return true;
             }
+            if (controller.IsEvading)
+            {
+                FSM.ChangeState(ECharacterState.Evade);
+                return true;
+            }
+            
             return false;
         }
     }

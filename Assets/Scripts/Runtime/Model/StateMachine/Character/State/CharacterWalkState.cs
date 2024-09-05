@@ -16,14 +16,14 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             base.Enter();
             walkToRunFactor = 0;
-            View.Animation.WalkingParam.Set(true);
-            View.Animation.WalkBlendParam.Set(0);
+            View.Animation.Walking.Set(true);
+            View.Animation.WalkBlend.Set(0);
         }
 
         internal override void Exit()
         {
             base.Exit();
-            View.Animation.WalkingParam.Set(false);
+            View.Animation.Walking.Set(false);
         }
 
         protected override void TickLogic(float deltaTime)
@@ -31,21 +31,32 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             base.TickLogic(deltaTime);
 
             // TODO: config
-            const float walkToRunSpeed = 0.75f;
+            const float walkToRunSpeed = 0.4f;
             walkToRunFactor += walkToRunSpeed * deltaTime;
-            View.Animation.WalkBlendParam.Set(walkToRunFactor);
+            View.Animation.WalkBlend.Set(walkToRunFactor);
         }
         
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
-
+            
+            if (!controller.IsMoving)
+            {
+                FSM.ChangeState(ECharacterState.Idle);
+                return true;
+            }
+            if (controller.IsEvading)
+            {
+                FSM.ChangeState(ECharacterState.Evade);
+                return true;
+            }
             // TODO: config
-            const float walkToRunThreshold = 0.75f;
+            const float walkToRunThreshold = 0.6f;
             if (walkToRunFactor > walkToRunThreshold)
             {
                 FSM.ChangeState(ECharacterState.Run);
             }
+
             return false;
         }
     }

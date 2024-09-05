@@ -23,11 +23,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
-            if (!controller.IsMoving)
-            {
-                FSM.ChangeState(ECharacterState.Idle);
-                return true;
-            }
 
             return false;
         }
@@ -41,7 +36,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character
             var targetDir = MovementUtils.GetHorizontalProjectionVector(Input.LookAt.GetLookAtDirection());
             targetDir = MovementUtils.GetRotationByAxis(
                 MovementUtils.GetRelativeInputAngle(Input.MoveJoyStick.Value), Vector3.up) * targetDir;
-            float angle = MovementUtils.GetRelativeRotateAngle(View.Movement.GetTransformForward(), targetDir);
+            float angle = MovementUtils.GetRelativeRotateAngle(View.Movement.GetCharacterForward(), targetDir);
             // TODO: config
             const float angleTolerance = 2.5f;
             if (Mathf.Abs(angle) > angleTolerance)

@@ -5,5 +5,6 @@
         Idle,
         Walk,
         Run,
+        Evade,
     }
 }

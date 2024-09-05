@@ -4,19 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff5f6a6e-54aa-4925-af0e-b26570c9802a" name="Changes" comment="feat: turn back running &amp; fix redundant rotate while running towards camera">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterTimerManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterTimerManager.cs.meta" afterDir="false" />
+    <list default="true" id="ff5f6a6e-54aa-4925-af0e-b26570c9802a" name="Changes" comment="opt: timer manager &amp; optimize/reformat code">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/CharacterBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/CharacterBehavior.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View/CharacterBaseState.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View/CharacterBaseState.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View/ViewProxy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View/ViewProxy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/PlayerController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/BaseStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/BaseStateMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterBaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterBaseState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Input.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/Input.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Input/InputSystemProxy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/Input/InputSystemProxy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Input/InputSystemProxy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/Input/InputSystemProxy.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/View.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View/ViewProxy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/View/ViewProxy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View/ViewProxy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/View/ViewProxy.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterTimerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterTimerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/View/IViewHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/View/IViewHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterMoveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterMoveState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/ECharacterState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/ECharacterState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" afterDir="false" />
@@ -73,16 +77,25 @@
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Animation/Anbi_Movement.fbx.meta" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Animation/Anbi_Movement.fbx.meta" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Animation/Avatar_Female_Size02_Anbi_Ani_Walk_End.anim" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Animation/Avatar_Female_Size02_Anbi_Ani_Walk_End.anim.meta" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/InputSystem.meta" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/InputSystem/InputSystem.inputsettings.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/Character/Controller/CharacterTimerManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterMoveState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterMoveState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/ECharacterState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/ECharacterState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -146,10 +159,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="64104">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="64104" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -168,7 +181,7 @@
       <workItem from="1725417464381" duration="1935000" />
       <workItem from="1725427208795" duration="20771000" />
       <workItem from="1725503429106" duration="457000" />
-      <workItem from="1725504050089" duration="16350000" />
+      <workItem from="1725504050089" duration="26580000" />
     </task>
     <task id="LOCAL-00001" summary="feat: idle and walk state">
       <option name="closed" value="true" />
@@ -186,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725516128226</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="opt: timer manager &amp; optimize/reformat code">
+      <option name="closed" value="true" />
+      <created>1725525287033</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1725525287033</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,7 +248,32 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="feat: idle and walk state" />
     <MESSAGE value="feat: turn back running &amp; fix redundant rotate while running towards camera" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: turn back running &amp; fix redundant rotate while running towards camera" />
+    <MESSAGE value="opt: timer manager &amp; optimize/reformat code" />
+    <option name="LAST_COMMIT_MESSAGE" value="opt: timer manager &amp; optimize/reformat code" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs</url>
+          <line>25</line>
+          <properties documentPath="G:\UnityProjects\ZenlessZoneZeroDemo\Assets\Scripts\Runtime\Model\StateMachine\Character\State\CharacterEvadeState.cs" containingFunctionPresentation="Method 'Enter'">
+            <startOffsets>
+              <option value="728" />
+            </startOffsets>
+            <endOffsets>
+              <option value="738" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="UNITY_DEBUG_RUN_CONFIGURATION">
+        <watch expression="this.turnBackTimerHandle.ownerManager.controller.canTurnBack" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

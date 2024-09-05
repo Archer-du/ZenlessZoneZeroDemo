@@ -24,16 +24,44 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
     }
     internal class CharacterTimerManager
     {
-        internal struct CharacterTimer
+        internal class CharacterTimer
         {
+            internal bool isDead;
+            private readonly float threshold;
             internal float value;
             internal Action action;
+            internal bool loop;
 
-            internal CharacterTimer(float value, Action action)
+            internal CharacterTimer(float value, Action action, bool loop)
             {
-                this.value = value;
+                isDead = false;
+                threshold = value;
+                this.value = threshold;
                 this.action = action;
+                this.loop = loop;
             }
+
+            internal void Update(float deltaTime)
+            {
+                if (value > 0f)
+                {
+                    value -= deltaTime;
+                }
+                else
+                {
+                    action?.Invoke();
+                    if (loop)
+                    {
+                        Reset();
+                    }
+                    else
+                    {
+                        isDead = true;
+                    }
+                }
+            }
+
+            private void Reset() => value = threshold;
         }
 
         private CharacterController controller;
@@ -53,15 +81,9 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             foreach (var kvp in timerMap)
             {
                 var timer = kvp.Value;
-                if (timer.value > 0f)
-                {
-                    timer.value -= deltaTime;
-                }
-                else
-                {
-                    timer.action?.Invoke();
+                timer.Update(deltaTime);
+                if(timer.isDead)
                     keysToRemove.Add(kvp.Key);
-                }
             }
 
             foreach (var guid in keysToRemove)
@@ -70,11 +92,11 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             }
         }
 
-        internal TimerHandle SetTimer(float time, Action action)
+        internal TimerHandle SetTimer(float time, Action action, bool loop = false)
         {
             var guid = Guid.NewGuid();
             TimerHandle timerHandle = new TimerHandle(this, guid);
-            if (!timerMap.TryAdd(guid, new CharacterTimer(time, action)))
+            if (!timerMap.TryAdd(guid, new CharacterTimer(time, action, loop)))
             {
                 // TODO: LogError
                 return null;

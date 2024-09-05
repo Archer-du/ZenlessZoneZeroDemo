@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using View;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
+using ZZZDemo.Runtime.Model.StateMachine.Character.State;
 
-namespace ZZZDemo.Runtime.Behavior.View
+namespace ZZZDemo.Runtime.Behavior.Character.View
 {
-    internal class MovementComponent : IMovementComponent
+    internal class MovementComponent : ICharacterMovement
     {
         private Transform characterTransform;
         public MovementComponent(Transform characterTransform)
@@ -12,7 +13,7 @@ namespace ZZZDemo.Runtime.Behavior.View
             this.characterTransform = characterTransform;
         }
 
-        public Vector3 GetTransformForward()
+        public Vector3 GetCharacterForward()
         {
             return characterTransform.forward;
         }
@@ -23,7 +24,7 @@ namespace ZZZDemo.Runtime.Behavior.View
         }
     }
     
-    internal class AnimationComponent : IAnimationComponent
+    internal class AnimationComponent : ICharacterAnimation
     {
         internal class AnimParamBase
         {
@@ -70,17 +71,21 @@ namespace ZZZDemo.Runtime.Behavior.View
             running = new BoolAnimParam(animator, "Running");
             walkBlend = new FloatAnimParam(animator, "WalkBlend");
             turnBack = new TriggerAnimParam(animator, "TurnBack");
+            evade = new TriggerAnimParam(animator, "Evade");
         }
 
-        public IAnimParamBase<bool> WalkingParam => walking;
+        public IAnimParamBase<bool> Walking => walking;
         private BoolAnimParam walking;
-        public IAnimParamBase<bool> RunningParam => running;
+        public IAnimParamBase<bool> Running => running;
         private BoolAnimParam running;
-        public IAnimParamBase<float> WalkBlendParam => walkBlend;
+        public IAnimParamBase<float> WalkBlend => walkBlend;
         private FloatAnimParam walkBlend;
-        public IAnimParamBase TurnBackParam => turnBack;
+        public IAnimParamBase TurnBack => turnBack;
         private TriggerAnimParam turnBack;
-        
+        public IAnimParamBase Evade => evade;
+        private TriggerAnimParam evade;
+
+        // TODO:
         public bool CheckAnimatedRootRotation()
         {
             if (animator.IsInTransition(0))
@@ -90,6 +95,47 @@ namespace ZZZDemo.Runtime.Behavior.View
             }
             return animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
                    Animator.StringToHash("TurnBack_NonStop");
+        }
+
+        public bool CheckTurnBack()
+        {
+            if (animator.IsInTransition(0))
+            {
+                return animator.GetNextAnimatorStateInfo(0).shortNameHash ==
+                       Animator.StringToHash("TurnBack_NonStop");
+            }
+            return animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
+                   Animator.StringToHash("TurnBack_NonStop");
+        }
+
+        public EEvadePhase GetEvadePhase()
+        {
+            if (animator.IsInTransition(0))
+            {
+                if (animator.GetNextAnimatorStateInfo(0).shortNameHash ==
+                    Animator.StringToHash("EvadeFront_Start"))
+                    return EEvadePhase.Start;
+                if (animator.GetNextAnimatorStateInfo(0).shortNameHash ==
+                    Animator.StringToHash("EvadeFront"))
+                    return EEvadePhase.Active;
+                if (animator.GetNextAnimatorStateInfo(0).shortNameHash ==
+                    Animator.StringToHash("EvadeFront_Recovery"))
+                    return EEvadePhase.Recovery;
+            }
+            else
+            {
+                if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
+                    Animator.StringToHash("EvadeFront_Start"))
+                    return EEvadePhase.Start;
+                if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
+                    Animator.StringToHash("EvadeFront"))
+                    return EEvadePhase.Active;
+                if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
+                    Animator.StringToHash("EvadeFront_Recovery"))
+                    return EEvadePhase.Recovery;
+            }
+
+            return EEvadePhase.NONE;
         }
     }
     
@@ -106,9 +152,9 @@ namespace ZZZDemo.Runtime.Behavior.View
             
         }
 
-        public IMovementComponent Movement => movement;
+        public ICharacterMovement Movement => movement;
         private MovementComponent movement;
-        public IAnimationComponent Animation => animation;
-        private IAnimationComponent animation;
+        public ICharacterAnimation Animation => animation;
+        private ICharacterAnimation animation;
     }
 }

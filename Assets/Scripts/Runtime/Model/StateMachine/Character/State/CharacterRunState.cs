@@ -15,19 +15,19 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         internal override void Enter()
         {
             base.Enter();
-            View.Animation.RunningParam.Set(true);
+            View.Animation.Running.Set(true);
             if (controller.IsSharpTurn)
             {
-                View.Animation.TurnBackParam.Set();
+                View.Animation.TurnBack.Set();
             }
         }
         internal override void Exit()
         {
             base.Exit();
-            View.Animation.RunningParam.Set(false);
+            View.Animation.Running.Set(false);
             controller.canTurnBack = true;
-            // TODO: config
             turnBackTimerHandle?.Invalidate();
+            //TODO: config
             turnBackTimerHandle = controller.timerManager.SetTimer(0.2f, () => { controller.canTurnBack = false; });
         }
         protected override void TickLogic(float deltaTime)
@@ -40,7 +40,17 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
-
+            
+            if (!View.Animation.CheckTurnBack() && !controller.IsMoving)
+            {
+                FSM.ChangeState(ECharacterState.Idle);
+                return true;
+            }
+            if (controller.IsEvading)
+            {
+                FSM.ChangeState(ECharacterState.Evade);
+                return true;
+            }
             return false;
         }
 

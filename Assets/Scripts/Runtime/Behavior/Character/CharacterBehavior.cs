@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using ZZZDemo.Runtime.Behavior.View;
 using ZZZDemo.Runtime.Behavior.Character.Input;
+using ZZZDemo.Runtime.Behavior.Character.View;
 using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 
 namespace ZZZDemo.Runtime.Behavior.Character

@@ -1,31 +1,35 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
+using ZZZDemo.Runtime.Model.StateMachine.Character.State;
 
 namespace View
 {
     public interface IViewHandler
     {
-        public IMovementComponent Movement { get; }
+        public ICharacterMovement Movement { get; }
         
-        public IAnimationComponent Animation { get; }
+        public ICharacterAnimation Animation { get; }
     }
 
-    public interface IMovementComponent
+    public interface ICharacterMovement
     {
         // getters
-        public Vector3 GetTransformForward();
+        public Vector3 GetCharacterForward();
         
         //setters
         public void RotateCharacterHorizontal(float angle);
     }
 
-    public interface IAnimationComponent
+    public interface ICharacterAnimation
     {
-        public IAnimParamBase<bool> WalkingParam { get; }
-        public IAnimParamBase<bool> RunningParam { get; }
-        public IAnimParamBase<float> WalkBlendParam { get; }
-        public IAnimParamBase TurnBackParam { get; }
+        public IAnimParamBase<bool> Walking { get; }
+        public IAnimParamBase<bool> Running { get; }
+        public IAnimParamBase<float> WalkBlend { get; }
+        public IAnimParamBase TurnBack { get; }
+        public IAnimParamBase Evade { get; }
 
         public bool CheckAnimatedRootRotation();
+        public bool CheckTurnBack();
+        public EEvadePhase GetEvadePhase();
     }
 }
