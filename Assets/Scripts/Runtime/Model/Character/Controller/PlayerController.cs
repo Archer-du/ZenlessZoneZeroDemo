@@ -3,7 +3,6 @@ using View;
 using ZZZDemo.Runtime.Model.Character.Input;
 using ZZZDemo.Runtime.Model.StateMachine.Character;
 using ZZZDemo.Runtime.Model.StateMachine.Character.State;
-using ZZZDemo.Runtime.Model.Utils;
 
 namespace ZZZDemo.Runtime.Model.Character.Controller
 {
@@ -13,6 +12,10 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
         internal IViewHandler view;
 
         private CharacterStateMachine characterFSM;
+        
+        internal Vector2Int lastRunDirection;
+
+        internal float turnbackWindowTimer = 0;
         public PlayerController(IInputHandler inputHandler, IViewHandler viewHandler)
         {
             this.input = inputHandler;
@@ -28,32 +31,21 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
         
         public void Update(float deltaTime)
         {
-            // TODO: why using fsm example
-            // if (input.MoveJoyStick.Value != Vector2.zero)
-            // {
-            //     // smooth rotation
-            //     var targetDir = MovementUtils.GetHorizontalProjectionVector(input.LookAt.GetLookAtDirection());
-            //     targetDir = MovementUtils.GetRotationByAxis(
-            //         MovementUtils.GetRelativeInputAngle(input.MoveJoyStick.Value), Vector3.up) * targetDir;
-            //     float angle = MovementUtils.GetRelativeRotateAngle(view.Movement.GetTransformForward(), targetDir);
-            //     // TODO: config
-            //     const float angleTolerance = 2.5f;
-            //     if (Mathf.Abs(angle) > angleTolerance)
-            //     {
-            //         // TODO: config
-            //         const float rotateResponseTime = 0.04f;
-            //         view.Movement.RotateCharacterHorizontal(angle * (deltaTime / rotateResponseTime));
-            //     }
-            //     
-            //     // animation
-            //     view.Animation.WalkingParam.Set(true);
-            // }
-            // else
-            // {
-            //     view.Animation.WalkingParam.Set(false);
-            // }
-            
             characterFSM.Update(deltaTime);
+            UpdateTimer(deltaTime);
+        }
+
+        private void UpdateTimer(float deltaTime)
+        {
+            if (turnbackWindowTimer > 0f)
+            {
+                turnbackWindowTimer -= deltaTime;
+            }
+            else
+            {
+                // invoke timer delegate
+                
+            }
         }
     }
 }

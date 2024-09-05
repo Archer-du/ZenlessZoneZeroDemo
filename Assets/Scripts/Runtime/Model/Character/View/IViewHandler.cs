@@ -24,5 +24,8 @@ namespace View
         public IAnimParamBase<bool> WalkingParam { get; }
         public IAnimParamBase<bool> RunningParam { get; }
         public IAnimParamBase<float> WalkBlendParam { get; }
+        public IAnimParamBase TurnBackParam { get; }
+
+        public bool CheckAnimatedRootRotation();
     }
 }

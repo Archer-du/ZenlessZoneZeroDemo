@@ -6,4 +6,9 @@ namespace ZZZDemo.Runtime.Model.Character.View.Animation
     {
         public void Set(T value);
     }
+
+    public interface IAnimParamBase
+    {
+        public void Set();
+    }
 }

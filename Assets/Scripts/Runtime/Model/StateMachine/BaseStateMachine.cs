@@ -31,7 +31,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine
             CurrentState.Enter();
         }
 
-        // TODO: 现在的缺点：Enter下一帧才开始Update
+        // 现在的缺点：Enter下一帧才开始Update
         internal void ChangeState(TE newState)
         {
             CurrentState.Exit();

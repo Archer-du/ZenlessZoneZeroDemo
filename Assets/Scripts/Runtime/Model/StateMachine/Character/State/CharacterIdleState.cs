@@ -9,22 +9,17 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
         }
 
-        internal override void Enter()
-        {
-            base.Enter();
-        }
-        protected override void TickLogic(float deltaTime)
-        {
-            base.TickLogic(deltaTime);
-        }
-
-        internal override void Exit()
-        {
-            base.Exit();
-        }
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
+            
+            if (controller.input.MoveJoyStick.Value != Vector2.zero 
+                && controller.turnbackWindowTimer > 0 
+                && controller.input.MoveJoyStick.Direction == - controller.lastRunDirection)
+            {
+                FSM.ChangeState(ECharacterState.Run);
+                return true;
+            }
             if (controller.input.MoveJoyStick.Value != Vector2.zero)
             {
                 FSM.ChangeState(ECharacterState.Walk);

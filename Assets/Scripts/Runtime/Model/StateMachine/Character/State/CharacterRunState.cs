@@ -4,9 +4,8 @@ using ZZZDemo.Runtime.Model.Utils;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
-    internal class CharacterRunState : CharacterBaseState
+    internal class CharacterRunState : CharacterMoveState
     {
-        private Vector2Int lastRunDirection;
         internal CharacterRunState(PlayerController controller, CharacterStateMachine stateMachine) : base(controller, stateMachine,ECharacterState.Run)
         {
         }
@@ -14,41 +13,36 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             base.Enter();
             View.Animation.RunningParam.Set(true);
+            if (controller.turnbackWindowTimer > 0 
+                && controller.input.MoveJoyStick.Direction == - controller.lastRunDirection)
+            {
+                View.Animation.TurnBackParam.Set();
+            }
         }
-
         internal override void Exit()
         {
             base.Exit();
             View.Animation.RunningParam.Set(false);
+            // TODO: 
+            controller.turnbackWindowTimer = 0.2f;
         }
         protected override void TickLogic(float deltaTime)
         {
             base.TickLogic(deltaTime);
-            // smooth rotation
-            var targetDir = MovementUtils.GetHorizontalProjectionVector(Input.LookAt.GetLookAtDirection());
-            targetDir = MovementUtils.GetRotationByAxis(
-                MovementUtils.GetRelativeInputAngle(Input.MoveJoyStick.Value), Vector3.up) * targetDir;
-            float angle = MovementUtils.GetRelativeRotateAngle(View.Movement.GetTransformForward(), targetDir);
-            // TODO: config
-            const float angleTolerance = 2.5f;
-            if (Mathf.Abs(angle) > angleTolerance)
-            {
-                // TODO: config
-                const float rotateResponseTime = 0.04f;
-                View.Movement.RotateCharacterHorizontal(angle * (deltaTime / rotateResponseTime));
-            }
+
             if (controller.input.MoveJoyStick.Value != Vector2.zero)
-                lastRunDirection = Input.MoveJoyStick.Direction;
+                controller.lastRunDirection = Input.MoveJoyStick.Direction;
         }
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
-            if (controller.input.MoveJoyStick.Value == Vector2.zero)
-            {
-                FSM.ChangeState(ECharacterState.Idle);
-                return true;
-            }
+
             return false;
+        }
+
+        protected override bool UseSmoothRotate()
+        {
+            return base.UseSmoothRotate() && !View.Animation.CheckAnimatedRootRotation();
         }
     }
 }

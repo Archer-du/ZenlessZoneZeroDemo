@@ -51,6 +51,16 @@ namespace ZZZDemo.Runtime.Behavior.View
                 animator.SetFloat(id, value);
             }
         }
+        
+        internal class TriggerAnimParam : AnimParamBase, IAnimParamBase
+        {
+            public TriggerAnimParam(Animator animator, string name) : base(animator, name){}
+
+            public void Set()
+            {
+                animator.SetTrigger(id);
+            }
+        }
         private Animator animator;
         public AnimationComponent(Animator animator)
         {
@@ -58,6 +68,7 @@ namespace ZZZDemo.Runtime.Behavior.View
             walking = new BoolAnimParam(animator, "Walking");
             running = new BoolAnimParam(animator, "Running");
             walkBlend = new FloatAnimParam(animator, "WalkBlend");
+            turnBack = new TriggerAnimParam(animator, "TurnBack");
         }
 
         public IAnimParamBase<bool> WalkingParam => walking;
@@ -66,6 +77,19 @@ namespace ZZZDemo.Runtime.Behavior.View
         private BoolAnimParam running;
         public IAnimParamBase<float> WalkBlendParam => walkBlend;
         private FloatAnimParam walkBlend;
+        public IAnimParamBase TurnBackParam => turnBack;
+        private TriggerAnimParam turnBack;
+        
+        public bool CheckAnimatedRootRotation()
+        {
+            if (animator.IsInTransition(0))
+            {
+                return animator.GetNextAnimatorStateInfo(0).shortNameHash ==
+                       Animator.StringToHash("TurnBack_NonStop");
+            }
+            return animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
+                   Animator.StringToHash("TurnBack_NonStop");
+        }
     }
     
     
