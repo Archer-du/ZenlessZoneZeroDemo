@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff5f6a6e-54aa-4925-af0e-b26570c9802a" name="Changes" comment="opt: timer manager &amp; optimize/reformat code">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/CharacterBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/CharacterBehavior.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Input.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/Input.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Input/InputSystemProxy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/Input/InputSystemProxy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Input/InputSystemProxy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/Input/InputSystemProxy.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/View.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View/ViewProxy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/View/ViewProxy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/View/ViewProxy.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/View/ViewProxy.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterTimerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterTimerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/View/IViewHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/View/IViewHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterMoveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterMoveState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/ECharacterState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/ECharacterState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" afterDir="false" />
-    </list>
+    <list default="true" id="ff5f6a6e-54aa-4925-af0e-b26570c9802a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,7 +95,7 @@
     "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "XThreadsFramesViewSplitterKey": "0.42184874",
-    "git-widget-placeholder": "#1 on develop",
+    "git-widget-placeholder": "develop",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -159,10 +139,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="64104">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="64104" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -249,7 +229,7 @@
     <MESSAGE value="feat: idle and walk state" />
     <MESSAGE value="feat: turn back running &amp; fix redundant rotate while running towards camera" />
     <MESSAGE value="opt: timer manager &amp; optimize/reformat code" />
-    <option name="LAST_COMMIT_MESSAGE" value="opt: timer manager &amp; optimize/reformat code" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -257,14 +237,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs</url>
           <line>25</line>
-          <properties documentPath="G:\UnityProjects\ZenlessZoneZeroDemo\Assets\Scripts\Runtime\Model\StateMachine\Character\State\CharacterEvadeState.cs" containingFunctionPresentation="Method 'Enter'">
-            <startOffsets>
-              <option value="728" />
-            </startOffsets>
-            <endOffsets>
-              <option value="738" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="G:\UnityProjects\ZenlessZoneZeroDemo\Assets\Scripts\Runtime\Model\StateMachine\Character\State\CharacterEvadeState.cs" containingFunctionPresentation="Method 'Enter'" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>

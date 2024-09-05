@@ -26,7 +26,8 @@ namespace View
         public IAnimParamBase<bool> Running { get; }
         public IAnimParamBase<float> WalkBlend { get; }
         public IAnimParamBase TurnBack { get; }
-        public IAnimParamBase Evade { get; }
+        public IAnimParamBase EvadeFront { get; }
+        public IAnimParamBase EvadeBack { get; }
 
         public bool CheckAnimatedRootRotation();
         public bool CheckTurnBack();

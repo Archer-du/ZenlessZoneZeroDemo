@@ -71,7 +71,8 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
             running = new BoolAnimParam(animator, "Running");
             walkBlend = new FloatAnimParam(animator, "WalkBlend");
             turnBack = new TriggerAnimParam(animator, "TurnBack");
-            evade = new TriggerAnimParam(animator, "Evade");
+            evadeFront = new TriggerAnimParam(animator, "EvadeFront");
+            evadeBack = new TriggerAnimParam(animator, "EvadeBack");
         }
 
         public IAnimParamBase<bool> Walking => walking;
@@ -82,8 +83,10 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
         private FloatAnimParam walkBlend;
         public IAnimParamBase TurnBack => turnBack;
         private TriggerAnimParam turnBack;
-        public IAnimParamBase Evade => evade;
-        private TriggerAnimParam evade;
+        public IAnimParamBase EvadeFront => evadeFront;
+        private TriggerAnimParam evadeFront;
+        public IAnimParamBase EvadeBack => evadeBack;
+        private TriggerAnimParam evadeBack;
 
         // TODO:
         public bool CheckAnimatedRootRotation()
@@ -112,30 +115,24 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
         {
             if (animator.IsInTransition(0))
             {
-                if (animator.GetNextAnimatorStateInfo(0).shortNameHash ==
-                    Animator.StringToHash("EvadeFront_Start"))
+                if (animator.GetNextAnimatorStateInfo(0).IsTag("EvadeStart"))
                     return EEvadePhase.Start;
-                if (animator.GetNextAnimatorStateInfo(0).shortNameHash ==
-                    Animator.StringToHash("EvadeFront"))
+                if (animator.GetNextAnimatorStateInfo(0).IsTag("EvadeActive"))
                     return EEvadePhase.Active;
-                if (animator.GetNextAnimatorStateInfo(0).shortNameHash ==
-                    Animator.StringToHash("EvadeFront_Recovery"))
+                if (animator.GetNextAnimatorStateInfo(0).IsTag("EvadeRecovery"))
                     return EEvadePhase.Recovery;
             }
             else
             {
-                if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
-                    Animator.StringToHash("EvadeFront_Start"))
+                if (animator.GetCurrentAnimatorStateInfo(0).IsTag("EvadeStart"))
                     return EEvadePhase.Start;
-                if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
-                    Animator.StringToHash("EvadeFront"))
+                if (animator.GetCurrentAnimatorStateInfo(0).IsTag("EvadeActive"))
                     return EEvadePhase.Active;
-                if (animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
-                    Animator.StringToHash("EvadeFront_Recovery"))
+                if (animator.GetCurrentAnimatorStateInfo(0).IsTag("EvadeRecovery"))
                     return EEvadePhase.Recovery;
             }
 
-            return EEvadePhase.NONE;
+            return EEvadePhase.Terminate;
         }
     }
     

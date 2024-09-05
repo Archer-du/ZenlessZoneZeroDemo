@@ -17,11 +17,11 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
         #region Locomotion
         internal bool IsMoving => input.MoveJoyStick.Value != Vector2.zero;
         internal bool IsSharpTurn => canTurnBack && input.MoveJoyStick.Direction == -lastRunDirection;
-        internal bool IsEvading => input.EvadeButton.Requesting() && evadeTimesRemain > 0;
+        internal bool IsEvading => canEvade && input.EvadeButton.Requesting();
 
-        
         internal Vector2Int lastRunDirection;
         internal bool canTurnBack = false;
+        internal bool canEvade = true;
         // TODO: config
         internal int evadeTimesRemain = 2;
 
@@ -42,7 +42,7 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             timerManager = new CharacterTimerManager(this);
 
             // TODO: config
-            timerManager.SetTimer(4f, () =>
+            timerManager.SetTimer(2f, () =>
             {
                 if (evadeTimesRemain < 2) evadeTimesRemain++;
             }, true);

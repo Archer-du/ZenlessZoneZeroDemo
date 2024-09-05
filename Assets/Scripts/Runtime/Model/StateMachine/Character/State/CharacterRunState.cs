@@ -46,7 +46,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 FSM.ChangeState(ECharacterState.Idle);
                 return true;
             }
-            if (controller.IsEvading)
+            if (!View.Animation.CheckTurnBack() && controller.IsEvading)
             {
                 FSM.ChangeState(ECharacterState.Evade);
                 return true;
