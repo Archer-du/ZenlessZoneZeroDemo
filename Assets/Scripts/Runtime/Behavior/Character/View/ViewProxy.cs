@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using View;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
+using ZZZDemo.Runtime.Model.StateMachine.Character;
 using ZZZDemo.Runtime.Model.StateMachine.Character.State;
 
 namespace ZZZDemo.Runtime.Behavior.Character.View
@@ -73,6 +75,7 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
             turnBack = new TriggerAnimParam(animator, "TurnBack");
             evadeFront = new TriggerAnimParam(animator, "EvadeFront");
             evadeBack = new TriggerAnimParam(animator, "EvadeBack");
+            lightAttack = new TriggerAnimParam(animator, "LightAttack");
         }
 
         public IAnimParamBase<bool> Walking => walking;
@@ -87,6 +90,8 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
         private TriggerAnimParam evadeFront;
         public IAnimParamBase EvadeBack => evadeBack;
         private TriggerAnimParam evadeBack;
+        public IAnimParamBase LightAttack => lightAttack;
+        private TriggerAnimParam lightAttack;
 
         // TODO:
         public bool CheckAnimatedRootRotation()
@@ -111,28 +116,25 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
                    Animator.StringToHash("TurnBack_NonStop");
         }
 
-        public EEvadePhase GetEvadePhase()
+        public EActionPhase GetActionPhase(EActionType type)
         {
-            if (animator.IsInTransition(0))
+            string typeStr = type.ToString();
+            List<EActionPhase> phases = new List<EActionPhase>()
+                { EActionPhase.Start, EActionPhase.Active, EActionPhase.Derive, EActionPhase.Recovery };
+            foreach (var phase in phases)
             {
-                if (animator.GetNextAnimatorStateInfo(0).IsTag("EvadeStart"))
-                    return EEvadePhase.Start;
-                if (animator.GetNextAnimatorStateInfo(0).IsTag("EvadeActive"))
-                    return EEvadePhase.Active;
-                if (animator.GetNextAnimatorStateInfo(0).IsTag("EvadeRecovery"))
-                    return EEvadePhase.Recovery;
+                if (animator.IsInTransition(0))
+                {
+                    if (animator.GetNextAnimatorStateInfo(0).IsTag(typeStr + phase))
+                        return phase;
+                }
+                else
+                {
+                    if (animator.GetCurrentAnimatorStateInfo(0).IsTag(typeStr + phase))
+                        return phase;
+                }
             }
-            else
-            {
-                if (animator.GetCurrentAnimatorStateInfo(0).IsTag("EvadeStart"))
-                    return EEvadePhase.Start;
-                if (animator.GetCurrentAnimatorStateInfo(0).IsTag("EvadeActive"))
-                    return EEvadePhase.Active;
-                if (animator.GetCurrentAnimatorStateInfo(0).IsTag("EvadeRecovery"))
-                    return EEvadePhase.Recovery;
-            }
-
-            return EEvadePhase.Terminate;
+            return EActionPhase.Terminate;
         }
     }
     

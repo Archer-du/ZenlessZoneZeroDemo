@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Utils;
 using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 
-namespace ZZZDemo.Runtime.Model.StateMachine.Character
+namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
     internal abstract class CharacterMoveState : CharacterBaseState
     {

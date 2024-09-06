@@ -2,16 +2,9 @@
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
-    public enum EEvadePhase
-    {
-        Start,
-        Active,
-        Recovery,
-        Terminate
-    }
     internal class CharacterEvadeState : CharacterBaseState
     {
-        private EEvadePhase phase = EEvadePhase.Terminate;
+        private EActionPhase phase = EActionPhase.Terminate;
 
         private bool reentrant = false;
 
@@ -23,8 +16,8 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         internal override void Enter()
         {
             base.Enter();
-            // assert evadeTimesRemain > 0
             Input.EvadeButton.Consume();
+            phase = EActionPhase.Terminate;
 
             if (reentrant)
             {
@@ -34,7 +27,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 //TODO: config
                 evadeColdDownHandle = controller.timerManager.SetTimer(0.8f, () => { controller.canEvade = true; });
             }
-            phase = EEvadePhase.Terminate;
 
             if (controller.IsMoving)
             {
@@ -54,8 +46,9 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         protected override void TickLogic(float deltaTime)
         {
             base.TickLogic(deltaTime);
-            phase = View.Animation.GetEvadePhase();
-            if (phase == EEvadePhase.Active && controller.IsEvading)
+            phase = View.Animation.GetActionPhase(EActionType.Evade);
+            
+            if (phase == EActionPhase.Active && controller.IsEvading)
             {
                 reentrant = true;
             }
@@ -65,31 +58,24 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             if (base.CheckTransition()) return true;
 
-            if (phase == EEvadePhase.Terminate)
+            // recovery阶段就已经是逻辑上的Idle状态了，所以这里要切换
+            if (phase == EActionPhase.Recovery)
             {
                 FSM.ChangeState(ECharacterState.Idle);
                 return true;
             }
-            if (phase == EEvadePhase.Active && controller.IsEvading)
+            // derive
+            if (phase == EActionPhase.Active && controller.IsEvading)
             {
                 FSM.ChangeState(ECharacterState.Evade);
                 return true;
             }
-            if (phase == EEvadePhase.Active && controller.IsMoving)
+            if (phase == EActionPhase.Active && controller.IsMoving)
             {
                 FSM.ChangeState(ECharacterState.Run);
                 return true;
             }
-            if (phase == EEvadePhase.Recovery && controller.IsEvading)
-            {
-                FSM.ChangeState(ECharacterState.Evade);
-                return true;
-            }
-            if (phase == EEvadePhase.Recovery && controller.IsMoving)
-            {
-                FSM.ChangeState(ECharacterState.Walk);
-                return true;
-            }
+
             return false;
         }
     }

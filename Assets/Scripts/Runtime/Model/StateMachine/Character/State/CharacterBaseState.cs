@@ -2,7 +2,7 @@
 using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Character.Input;
 
-namespace ZZZDemo.Runtime.Model.StateMachine.Character
+namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
     internal abstract class CharacterBaseState : BaseState<ECharacterState>
     {

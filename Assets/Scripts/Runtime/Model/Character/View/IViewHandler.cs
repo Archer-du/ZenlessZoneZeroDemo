@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
+using ZZZDemo.Runtime.Model.StateMachine.Character;
 using ZZZDemo.Runtime.Model.StateMachine.Character.State;
 
 namespace View
@@ -28,9 +29,10 @@ namespace View
         public IAnimParamBase TurnBack { get; }
         public IAnimParamBase EvadeFront { get; }
         public IAnimParamBase EvadeBack { get; }
-
+        public IAnimParamBase LightAttack { get; }
+        
         public bool CheckAnimatedRootRotation();
         public bool CheckTurnBack();
-        public EEvadePhase GetEvadePhase();
+        public EActionPhase GetActionPhase(EActionType type);
     }
 }

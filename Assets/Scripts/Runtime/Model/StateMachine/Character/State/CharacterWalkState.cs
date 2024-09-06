@@ -31,7 +31,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             base.TickLogic(deltaTime);
 
             // TODO: config
-            const float walkToRunSpeed = 0.4f;
+            const float walkToRunSpeed = 0.2f;
             walkToRunFactor += walkToRunSpeed * deltaTime;
             View.Animation.WalkBlend.Set(walkToRunFactor);
         }
@@ -56,7 +56,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             {
                 FSM.ChangeState(ECharacterState.Run);
             }
-
+            
+            if (controller.IsLightAttacking)
+            {
+                FSM.ChangeState(ECharacterState.LightAttack);
+                return true;
+            }
             return false;
         }
     }

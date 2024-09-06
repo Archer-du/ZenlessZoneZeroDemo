@@ -29,7 +29,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 FSM.ChangeState(ECharacterState.Evade);
                 return true;
             }
-            
+            if (controller.IsLightAttacking)
+            {
+                FSM.ChangeState(ECharacterState.LightAttack);
+                return true;
+            }
             return false;
         }
     }

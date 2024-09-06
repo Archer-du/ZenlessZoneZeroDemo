@@ -6,5 +6,7 @@
         Walk,
         Run,
         Evade,
+        LightAttack,
+        HeavyAttack,
     }
 }

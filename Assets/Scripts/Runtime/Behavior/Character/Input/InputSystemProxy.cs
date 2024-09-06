@@ -105,6 +105,8 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
         private CameraLookAt lookJoyStick;
         public IVirtualButton EvadeButton => evadeButton;
         private VirtualButton evadeButton;
+        public IVirtualButton LightAttackButton => lightAttackButton;
+        private VirtualButton lightAttackButton;
         
         
         private InputActionAsset inputActionAsset;
@@ -115,6 +117,7 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
             lookJoyStick = new(asset.FindActionMap("Battle").FindAction("Look"));
             //TODO: config
             evadeButton = new(asset.FindActionMap("Battle").FindAction("Evade"), 0.2f);
+            lightAttackButton = new(asset.FindActionMap("Battle").FindAction("LightAttack"), 0.2f);
         }
 
         public void Update(float deltaTime)

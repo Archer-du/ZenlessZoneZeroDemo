@@ -7,6 +7,7 @@ namespace ZZZDemo.Runtime.Model.Character.Input
         public IVirtualJoyStick MoveJoyStick { get; }
         public IVirtualCamera LookAt { get; }
         public IVirtualButton EvadeButton { get; }
+        public IVirtualButton LightAttackButton { get; }
     }
     
     public interface IVirtualJoyStick
