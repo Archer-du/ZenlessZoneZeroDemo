@@ -4,23 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6135970e-943e-4a5f-a576-bdbf01344819" name="Changes" comment="feat: light_attack_01 &amp; fix evade animation errors &amp; clean up animator">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterDeriveData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterDeriveData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterEvadeDeriveData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterEvadeDeriveData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterLightAttackDeriveData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterLightAttackDeriveData.cs.meta" afterDir="false" />
+    <list default="true" id="6135970e-943e-4a5f-a576-bdbf01344819" name="Changes" comment="feat: single active phase attack &amp; derive light attack">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Animation/Anbi_Attack.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Animation/Anbi_Attack.fbx.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/View/ViewProxy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/View/ViewProxy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/View/IViewHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/View/IViewHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterStateMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterAttackState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterLightAttackDeriveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterLightAttackDeriveData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterBaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterBaseState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterLightAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterLightAttackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +120,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1725592393797</updated>
-      <workItem from="1725592395605" duration="19950000" />
+      <workItem from="1725592395605" duration="23978000" />
     </task>
     <task id="LOCAL-00001" summary="feat: light_attack_01 &amp; fix evade animation errors &amp; clean up animator">
       <option name="closed" value="true" />
@@ -135,7 +130,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725603621144</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: single active phase attack &amp; derive light attack">
+      <option name="closed" value="true" />
+      <created>1725613743656</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1725613743656</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,7 +163,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="develop" />
                       </list>
                     </value>
                   </entry>
@@ -175,6 +178,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="feat: light_attack_01 &amp; fix evade animation errors &amp; clean up animator" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: light_attack_01 &amp; fix evade animation errors &amp; clean up animator" />
+    <MESSAGE value="feat: single active phase attack &amp; derive light attack" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: single active phase attack &amp; derive light attack" />
   </component>
 </project>

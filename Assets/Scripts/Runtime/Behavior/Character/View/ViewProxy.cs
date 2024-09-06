@@ -84,6 +84,7 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
             evadeFront = new TriggerAnimParam(animator, "EvadeFront");
             evadeBack = new TriggerAnimParam(animator, "EvadeBack");
             lightAttack = new TriggerAnimParam(animator, "LightAttack");
+            rushAttack = new TriggerAnimParam(animator, "RushAttack");
             lightAttackDeriveLayer = new IntAnimParam(animator, "LightAttackDeriveLayer");
         }
 
@@ -101,6 +102,8 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
         private TriggerAnimParam evadeBack;
         public IAnimParamBase LightAttack => lightAttack;
         private TriggerAnimParam lightAttack;
+        public IAnimParamBase RushAttack => rushAttack;
+        private TriggerAnimParam rushAttack;
         public IAnimParamBase<int> LightAttackDeriveLayer => lightAttackDeriveLayer;
         private IntAnimParam lightAttackDeriveLayer;
         

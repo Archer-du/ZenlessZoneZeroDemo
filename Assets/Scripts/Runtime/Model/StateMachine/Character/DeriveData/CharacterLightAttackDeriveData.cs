@@ -3,9 +3,11 @@
     internal class CharacterLightAttackDeriveData : CharacterDeriveData
     {
         internal int deriveLayer;
-        public CharacterLightAttackDeriveData(int deriveLayer)
+        internal bool rushAttack;
+        public CharacterLightAttackDeriveData(int deriveLayer, bool rushAttack = false)
         {
             this.deriveLayer = deriveLayer;
+            this.rushAttack = rushAttack;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             if (base.CheckDeriveTransition()) return true;
             // TODO: config
-            if (phase == EActionPhase.Derive && controller.IsLightAttacking && deriveLayer < 2)
+            if (phase == EActionPhase.Derive && controller.IsLightAttacking && deriveLayer < 4)
             {
                 if (FSM[ECharacterState.LightAttack] is CharacterActionState deriveState)
                 {
@@ -71,6 +71,10 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             if (deriveDataPack is CharacterLightAttackDeriveData deriveData)
             {
                 deriveLayer = deriveData.deriveLayer;
+                if (deriveData.rushAttack)
+                {
+                    View.Animation.RushAttack.Set();
+                }
             }
             // destroy after unpack
             deriveDataPack = null;

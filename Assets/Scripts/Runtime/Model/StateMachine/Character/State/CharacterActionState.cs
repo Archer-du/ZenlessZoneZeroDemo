@@ -28,15 +28,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         }
 
         // TODO: derivable interface?
-        protected virtual bool CheckDeriveTransition() => false;
-        protected override bool CheckTransition()
-        {
-            if (CheckDeriveTransition()) return true;
-            
-            if (base.CheckTransition()) return true;
-
-            return false;
-        }
 
         protected CharacterDeriveData deriveDataPack;
         internal void InjectDeriveData(CharacterDeriveData deriveData) => this.deriveDataPack = deriveData; 

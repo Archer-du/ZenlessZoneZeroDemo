@@ -16,5 +16,15 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             this.controller = controller;
             FSM = stateMachine;
         }
+        
+        protected virtual bool CheckDeriveTransition() => false;
+        protected override bool CheckTransition()
+        {
+            if (CheckDeriveTransition()) return true;
+            
+            if (base.CheckTransition()) return true;
+
+            return false;
+        }
     }
 }

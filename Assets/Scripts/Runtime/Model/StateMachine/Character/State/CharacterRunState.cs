@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
+using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 using ZZZDemo.Runtime.Model.Utils;
 using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 using TimerHandle = ZZZDemo.Runtime.Model.Character.Controller.TimerHandle;
@@ -37,6 +38,22 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             if (controller.IsMoving)
                 controller.lastRunDirection = Input.MoveJoyStick.Direction;
         }
+
+        protected override bool CheckDeriveTransition()
+        {
+            if (base.CheckDeriveTransition()) return true;
+            if (!View.Animation.CheckTurnBack() && controller.IsLightAttacking)
+            {
+                if (FSM[ECharacterState.LightAttack] is CharacterActionState deriveState)
+                {
+                    deriveState.InjectDeriveData(new CharacterLightAttackDeriveData(1, true));
+                }
+                FSM.ChangeState(ECharacterState.LightAttack);
+                return true;
+            }
+            return false;
+        }
+
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;

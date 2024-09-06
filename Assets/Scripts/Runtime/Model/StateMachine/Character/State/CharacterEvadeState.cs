@@ -38,7 +38,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
-            // derive
             if (phase == EActionPhase.Derive && controller.IsEvading)
             {
                 if (FSM[ECharacterState.Evade] is CharacterActionState deriveState)
@@ -49,11 +48,15 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 FSM.ChangeState(ECharacterState.Evade);
                 return true;
             }
-            // if (phase == EActionPhase.Derive && controller.IsLightAttacking)
-            // {
-            //     FSM.ChangeState(ECharacterState.LightAttack);
-            //     return true;
-            // }
+            if (phase == EActionPhase.Active && controller.IsLightAttacking)
+            {
+                if (FSM[ECharacterState.LightAttack] is CharacterActionState deriveState)
+                {
+                    deriveState.InjectDeriveData(new CharacterLightAttackDeriveData(1, true));
+                }
+                FSM.ChangeState(ECharacterState.LightAttack);
+                return true;
+            }
             return false;
         }
         protected override bool CheckTransition()
