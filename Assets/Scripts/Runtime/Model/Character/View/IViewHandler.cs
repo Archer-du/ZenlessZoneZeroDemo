@@ -30,6 +30,7 @@ namespace View
         public IAnimParamBase EvadeFront { get; }
         public IAnimParamBase EvadeBack { get; }
         public IAnimParamBase LightAttack { get; }
+        public IAnimParamBase<int> LightAttackDeriveLayer { get; }
         
         public bool CheckAnimatedRootRotation();
         public bool CheckTurnBack();

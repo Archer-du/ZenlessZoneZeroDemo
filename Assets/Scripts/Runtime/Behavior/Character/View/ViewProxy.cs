@@ -55,7 +55,15 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
                 animator.SetFloat(id, value);
             }
         }
-        
+        internal class IntAnimParam : AnimParamBase, IAnimParamBase<int>
+        {
+            public IntAnimParam(Animator animator, string name) : base(animator, name){}
+
+            public void Set(int value)
+            {
+                animator.SetInteger(id, value);
+            }
+        }
         internal class TriggerAnimParam : AnimParamBase, IAnimParamBase
         {
             public TriggerAnimParam(Animator animator, string name) : base(animator, name){}
@@ -76,6 +84,7 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
             evadeFront = new TriggerAnimParam(animator, "EvadeFront");
             evadeBack = new TriggerAnimParam(animator, "EvadeBack");
             lightAttack = new TriggerAnimParam(animator, "LightAttack");
+            lightAttackDeriveLayer = new IntAnimParam(animator, "LightAttackDeriveLayer");
         }
 
         public IAnimParamBase<bool> Walking => walking;
@@ -92,7 +101,9 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
         private TriggerAnimParam evadeBack;
         public IAnimParamBase LightAttack => lightAttack;
         private TriggerAnimParam lightAttack;
-
+        public IAnimParamBase<int> LightAttackDeriveLayer => lightAttackDeriveLayer;
+        private IntAnimParam lightAttackDeriveLayer;
+        
         // TODO:
         public bool CheckAnimatedRootRotation()
         {
