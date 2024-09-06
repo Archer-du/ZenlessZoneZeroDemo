@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using ZZZDemo.Runtime.Behavior.Character;
+using ZZZDemo.Runtime.Model.Utils;
 
 namespace ZZZDemo.Editor.Character
 {
@@ -11,6 +12,8 @@ namespace ZZZDemo.Editor.Character
             base.DrawInspectorProperties();
 
             EditorGUILayout.LabelField("Input");
+            EditorGUILayout.Vector2Field("MoveJoyStickValue", Behavior.InputSystemProxy.MoveJoyStick.Value);
+            EditorGUILayout.FloatField("MoveJoyStickAngle", MovementUtils.GetRelativeInputAngle(Behavior.InputSystemProxy.MoveJoyStick.Value));
             EditorGUILayout.Space();
         }
     }

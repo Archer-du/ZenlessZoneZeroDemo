@@ -9,19 +9,19 @@ namespace ZZZDemo.Runtime.Model.StateMachine
         public T PreviousState { get; private set; }
         public T CurrentState { get; private set; }
 
-        protected readonly Dictionary<TE, T> statesMap;
+        protected readonly Dictionary<TE, T> stateMap;
         
         public bool debugMode = true;
 
         public T this[TE eState]
         {
-            get => statesMap[eState];
-            set => statesMap.TryAdd(eState, value);
+            get => stateMap[eState];
+            set => stateMap.TryAdd(eState, value);
         }
 
         internal BaseStateMachine()
         {
-            statesMap = new Dictionary<TE, T>();
+            stateMap = new Dictionary<TE, T>();
         }
 
         internal void Initialize(TE startingState)
@@ -46,7 +46,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine
         internal void Update(float deltaTime)
         {
             CurrentState?.Update(deltaTime);
-            CurrentState?.CheckTransition();
         }
     }
 }

@@ -66,7 +66,7 @@ ModelImporter:
       takeName: Avatar_Female_Size02_Anbi_Ani_Run
       internalID: -8483063365841296365
       firstFrame: 0
-      lastFrame: 112
+      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -74,7 +74,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
@@ -126,7 +126,7 @@ ModelImporter:
       firstFrame: 0
       lastFrame: 431
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: 20
       level: 0
       cycleOffset: 0
       loop: 0
@@ -298,7 +298,7 @@ ModelImporter:
       takeName: Avatar_Female_Size02_Anbi_Ani_Walk
       internalID: 1537088672141427755
       firstFrame: 0
-      lastFrame: 669
+      lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
