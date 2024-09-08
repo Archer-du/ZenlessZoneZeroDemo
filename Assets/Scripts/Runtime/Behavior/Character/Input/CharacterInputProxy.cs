@@ -5,8 +5,8 @@ using ZZZDemo.Runtime.Model.Character.Input;
 
 namespace ZZZDemo.Runtime.Behavior.Character.Input
 {
-    
-    public class InputSystemProxy : IInputHandler
+    [RequireComponent(typeof(PlayerInput))]
+    public class CharacterInputProxy : MonoBehaviour, IInputHandler
     {
         internal struct VirtualJoyStick : IVirtualJoyStick
         {
@@ -99,6 +99,8 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
             }
         }
 
+        public PlayerInput playerInput;
+        
         public IVirtualJoyStick MoveJoyStick => moveJoyStick;
         private VirtualJoyStick moveJoyStick;
         public IVirtualCamera LookAt => lookJoyStick;
@@ -108,21 +110,32 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
         public IVirtualButton LightAttackButton => lightAttackButton;
         private VirtualButton lightAttackButton;
         
-        
-        private InputActionAsset inputActionAsset;
-        public InputSystemProxy(InputActionAsset asset)
+        public void Awake()
         {
-            inputActionAsset = asset;
+            playerInput ??= GetComponent<PlayerInput>();
+            var asset = playerInput.actions;
             moveJoyStick = new(asset.FindActionMap("Battle").FindAction("Move"));
             lookJoyStick = new(asset.FindActionMap("Battle").FindAction("Look"));
             //TODO: config
             evadeButton = new(asset.FindActionMap("Battle").FindAction("Evade"), 0.2f);
+            //TODO: config
             lightAttackButton = new(asset.FindActionMap("Battle").FindAction("LightAttack"), 0.2f);
         }
 
-        public void Update(float deltaTime)
+        public void Update()
         {
-            evadeButton.Update(deltaTime);
+            evadeButton.Update(Time.deltaTime);
+            lightAttackButton.Update(Time.deltaTime);
+        }
+        
+        private void OnEnable()
+        {
+            playerInput.actions.Enable();
+        }
+        
+        private void OnDisable()
+        {
+            playerInput.actions.Enable();
         }
     }
 }

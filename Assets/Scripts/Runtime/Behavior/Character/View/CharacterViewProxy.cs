@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using View;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
@@ -151,23 +152,25 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
             return EActionPhase.Terminate;
         }
     }
-    
-    public class ViewProxy : IViewHandler
+    [RequireComponent(typeof(Animator))]
+    public class CharacterViewProxy :MonoBehaviour, IViewHandler
     {
-        public ViewProxy(Transform transform, Animator animator)
+        public Animator animator;
+        public ICharacterMovement Movement => characterMovement;
+        private MovementComponent characterMovement;
+        public ICharacterAnimation Animation => characterAnimation;
+        private ICharacterAnimation characterAnimation;
+        
+        public void Awake()
         {
-            movement = new MovementComponent(transform);
-            animation = new AnimationComponent(animator);
+            animator ??= GetComponent<Animator>();
+            characterMovement = new MovementComponent(transform);
+            characterAnimation = new AnimationComponent(animator);
         }
 
-        public void Update(float deltaTime)
+        private void OnAnimatorMove()
         {
-            
+            animator.ApplyBuiltinRootMotion();
         }
-
-        public ICharacterMovement Movement => movement;
-        private MovementComponent movement;
-        public ICharacterAnimation Animation => animation;
-        private ICharacterAnimation animation;
     }
 }

@@ -5,6 +5,7 @@
         Start,
         Active,
         Derive,
+        DelayDerive,
         Recovery,
         Terminate
     }

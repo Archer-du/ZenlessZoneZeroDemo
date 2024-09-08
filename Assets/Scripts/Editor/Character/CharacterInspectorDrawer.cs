@@ -12,8 +12,8 @@ namespace ZZZDemo.Editor.Character
             base.DrawInspectorProperties();
 
             EditorGUILayout.LabelField("Input");
-            EditorGUILayout.Vector2Field("MoveJoyStickValue", Behavior.InputSystemProxy.MoveJoyStick.Value);
-            EditorGUILayout.FloatField("MoveJoyStickAngle", MovementUtils.GetRelativeInputAngle(Behavior.InputSystemProxy.MoveJoyStick.Value));
+            EditorGUILayout.Vector2Field("MoveJoyStickValue", Behavior.inputProxy.MoveJoyStick.Value);
+            EditorGUILayout.FloatField("MoveJoyStickAngle", MovementUtils.GetRelativeInputAngle(Behavior.inputProxy.MoveJoyStick.Value));
             EditorGUILayout.Space();
         }
     }

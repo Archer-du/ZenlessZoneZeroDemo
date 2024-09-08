@@ -44,11 +44,8 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             if (base.CheckDeriveTransition()) return true;
             if (!View.Animation.CheckTurnBack() && controller.IsLightAttacking)
             {
-                if (FSM[ECharacterState.LightAttack] is CharacterActionState deriveState)
-                {
-                    deriveState.InjectDeriveData(new CharacterLightAttackDeriveData(1, true));
-                }
-                FSM.ChangeState(ECharacterState.LightAttack);
+                FSM.DeriveState(ECharacterState.LightAttack, 
+                    new CharacterLightAttackDeriveData(1, true));
                 return true;
             }
             return false;
