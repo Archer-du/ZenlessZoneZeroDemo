@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
+using ZZZDemo.Runtime.Model.Character.View.Animation;
 using ZZZDemo.Runtime.Model.Utils;
 using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 

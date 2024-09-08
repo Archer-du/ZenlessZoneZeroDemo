@@ -26,15 +26,13 @@ namespace View
         public IAnimParamBase<bool> Walking { get; }
         public IAnimParamBase<bool> Running { get; }
         public IAnimParamBase<float> WalkBlend { get; }
-        public IAnimParamBase TurnBack { get; }
-        public IAnimParamBase EvadeFront { get; }
-        public IAnimParamBase EvadeBack { get; }
         public IAnimParamBase LightAttack { get; }
-        public IAnimParamBase RushAttack { get; }
         public IAnimParamBase<int> LightAttackDeriveLayer { get; }
         
         public bool CheckAnimatedRootRotation();
         public bool CheckTurnBack();
         public EActionPhase GetActionPhase(EActionType type);
+        public void TransitToState(EAnimationState state, float transitionDuration);
+        public void TransitToStateNormalized(EAnimationState state, float normalizedDuration);
     }
 }

@@ -31,20 +31,7 @@ namespace ZZZDemo.Runtime.Behavior.Character
 
         void Update()
         {
-            // input update phase
-            // inputProxy.Update(Time.deltaTime);
-            
-            // animation update phase
-            // viewProxy.Update(Time.deltaTime);
-
-            // core logic update phase
             characterController.Update(Time.deltaTime);
         }
-
-        private void ActionStartup()
-        {
-            Debug.Log("ActionStartup");
-        }
     }
-
 }

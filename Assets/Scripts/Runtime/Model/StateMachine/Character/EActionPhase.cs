@@ -2,10 +2,10 @@
 {
     public enum EActionPhase
     {
-        Start,
+        Startup,
         Active,
-        Derive,
-        DelayDerive,
+        Cancel,
+        Delay,
         Recovery,
         Terminate
     }

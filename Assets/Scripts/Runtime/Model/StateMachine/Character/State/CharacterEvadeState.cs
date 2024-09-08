@@ -1,4 +1,5 @@
 ﻿using ZZZDemo.Runtime.Model.Character.Controller;
+using ZZZDemo.Runtime.Model.Character.View.Animation;
 using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
@@ -28,18 +29,20 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 
             if (controller.IsMoving)
             {
-                View.Animation.EvadeFront.Set();
+                //TODO: config
+                View.Animation.TransitToState(EAnimationState.EvadeFront, 0.1f);
             }
             else
             {
-                View.Animation.EvadeBack.Set();
+                //TODO: config
+                View.Animation.TransitToState(EAnimationState.EvadeBack, 0.1f);
             }
         }
 
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
-            if (phase == EActionPhase.Derive && controller.IsEvading)
+            if (phase == EActionPhase.Cancel && controller.IsEvading)
             {
                 FSM.DeriveState(ECharacterState.Evade, 
                     new CharacterEvadeDeriveData(CharacterEvadeDeriveData.DeriveType.Reentrant));
@@ -68,7 +71,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 return true;
             }
             
-            if (phase == EActionPhase.Derive && controller.IsMoving)
+            if (phase == EActionPhase.Cancel && controller.IsMoving)
             {
                 FSM.ChangeState(ECharacterState.Run);
                 return true;

@@ -74,92 +74,108 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
                 animator.SetTrigger(id);
             }
         }
+        
+        
         private Animator animator;
-        public AnimationComponent(Animator animator)
-        {
-            this.animator = animator;
-            walking = new BoolAnimParam(animator, "Walking");
-            running = new BoolAnimParam(animator, "Running");
-            walkBlend = new FloatAnimParam(animator, "WalkBlend");
-            turnBack = new TriggerAnimParam(animator, "TurnBack");
-            evadeFront = new TriggerAnimParam(animator, "EvadeFront");
-            evadeBack = new TriggerAnimParam(animator, "EvadeBack");
-            lightAttack = new TriggerAnimParam(animator, "LightAttack");
-            rushAttack = new TriggerAnimParam(animator, "RushAttack");
-            lightAttackDeriveLayer = new IntAnimParam(animator, "LightAttackDeriveLayer");
-        }
-
         public IAnimParamBase<bool> Walking => walking;
         private BoolAnimParam walking;
         public IAnimParamBase<bool> Running => running;
         private BoolAnimParam running;
         public IAnimParamBase<float> WalkBlend => walkBlend;
         private FloatAnimParam walkBlend;
-        public IAnimParamBase TurnBack => turnBack;
-        private TriggerAnimParam turnBack;
         public IAnimParamBase EvadeFront => evadeFront;
         private TriggerAnimParam evadeFront;
         public IAnimParamBase EvadeBack => evadeBack;
         private TriggerAnimParam evadeBack;
         public IAnimParamBase LightAttack => lightAttack;
         private TriggerAnimParam lightAttack;
-        public IAnimParamBase RushAttack => rushAttack;
-        private TriggerAnimParam rushAttack;
         public IAnimParamBase<int> LightAttackDeriveLayer => lightAttackDeriveLayer;
         private IntAnimParam lightAttackDeriveLayer;
         
-        // TODO:
+        // TODO: config
+        public Dictionary<EAnimationState, int> animStateMap = new()
+        {
+            { EAnimationState.Walking, Animator.StringToHash("Walk_Blend")},
+            { EAnimationState.Running, Animator.StringToHash("Run")},
+            { EAnimationState.TurnBack, Animator.StringToHash("TurnBack_NonStop")},
+            { EAnimationState.RushAttack, Animator.StringToHash("RushAttack_Start")},
+            { EAnimationState.EvadeFront, Animator.StringToHash("EvadeFront_Start")},
+            { EAnimationState.EvadeBack, Animator.StringToHash("EvadeBack_Start")},
+
+            { EAnimationState.Anby_DelayAttack, Animator.StringToHash("LightAttackDelay_04_Start") }
+        };
+        
+        public AnimationComponent(Animator animator)
+        {
+            this.animator = animator;
+            walking = new BoolAnimParam(animator, "Walking");
+            running = new BoolAnimParam(animator, "Running");
+            walkBlend = new FloatAnimParam(animator, "WalkBlend");
+            evadeFront = new TriggerAnimParam(animator, "EvadeFront");
+            evadeBack = new TriggerAnimParam(animator, "EvadeBack");
+            lightAttack = new TriggerAnimParam(animator, "LightAttack");
+            lightAttackDeriveLayer = new IntAnimParam(animator, "LightAttackDeriveLayer");
+        }
+        
         public bool CheckAnimatedRootRotation()
         {
-            if (animator.IsInTransition(0))
-            {
-                return animator.GetNextAnimatorStateInfo(0).shortNameHash ==
-                       Animator.StringToHash("TurnBack_NonStop");
-            }
-            return animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
-                   Animator.StringToHash("TurnBack_NonStop");
+            // TODO: other animated root rotation state
+            return CheckTurnBack() || false;
         }
 
         public bool CheckTurnBack()
         {
-            if (animator.IsInTransition(0))
-            {
-                return animator.GetNextAnimatorStateInfo(0).shortNameHash ==
-                       Animator.StringToHash("TurnBack_NonStop");
-            }
-            return animator.GetCurrentAnimatorStateInfo(0).shortNameHash ==
-                   Animator.StringToHash("TurnBack_NonStop");
+            return GetCurrentStateInfo().shortNameHash == animStateMap[EAnimationState.TurnBack];
         }
 
         public EActionPhase GetActionPhase(EActionType type)
         {
             string typeStr = type.ToString();
-            List<EActionPhase> phases = new List<EActionPhase>()
-                { EActionPhase.Start, EActionPhase.Active, EActionPhase.Derive, EActionPhase.Recovery };
+            EActionPhase[] phases = (EActionPhase[])Enum.GetValues(typeof(EActionPhase));
             foreach (var phase in phases)
             {
-                if (animator.IsInTransition(0))
+                if (GetCurrentStateInfo().IsTag(typeStr + phase))
                 {
-                    if (animator.GetNextAnimatorStateInfo(0).IsTag(typeStr + phase))
-                        return phase;
-                }
-                else
-                {
-                    if (animator.GetCurrentAnimatorStateInfo(0).IsTag(typeStr + phase))
-                        return phase;
+                    return phase;
                 }
             }
             return EActionPhase.Terminate;
         }
+
+        public void TransitToState(EAnimationState state, float transitionDuration)
+        {
+            animator.CrossFadeInFixedTime(animStateMap[state], transitionDuration);
+        }
+
+        public void TransitToStateNormalized(EAnimationState state, float normalizedDuration)
+        {
+            animator.CrossFade(animStateMap[state], normalizedDuration);
+        }
+
+        private AnimatorStateInfo GetCurrentStateInfo()
+        {
+            if (animator.IsInTransition(0))
+            {
+                return animator.GetNextAnimatorStateInfo(0);
+            }
+            else
+            {
+                return animator.GetCurrentAnimatorStateInfo(0);
+            }
+        }
+
+        public EActionPhase actionPhase = EActionPhase.Terminate;
     }
+    
+    
     [RequireComponent(typeof(Animator))]
-    public class CharacterViewProxy :MonoBehaviour, IViewHandler
+    public class CharacterViewProxy : MonoBehaviour, IViewHandler
     {
         public Animator animator;
         public ICharacterMovement Movement => characterMovement;
         private MovementComponent characterMovement;
         public ICharacterAnimation Animation => characterAnimation;
-        private ICharacterAnimation characterAnimation;
+        private AnimationComponent characterAnimation;
         
         public void Awake()
         {
@@ -172,5 +188,27 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
         {
             animator.ApplyBuiltinRootMotion();
         }
+
+        public void OnActionStateEnter()
+        {
+            characterAnimation.actionPhase = EActionPhase.Startup;
+        }
+        public void OnActionStateExit()
+        {
+            characterAnimation.actionPhase = EActionPhase.Recovery;
+        }
+
+        #region Debug
+        
+        public void TestTick()
+        {
+            // NOTE: 第一帧的animation event和直接获取动画状态有一帧间隔！
+            // NOTE: 但是StateMachineBehavior不会！
+            var animPhase = characterAnimation.GetActionPhase(EActionType.Attack);
+            if(animPhase != characterAnimation.actionPhase)
+                Debug.Log(animPhase + "|" + characterAnimation.actionPhase);
+        }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ZZZDemo.Runtime.Model.Character.Controller;
+using ZZZDemo.Runtime.Model.Character.View.Animation;
 using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
@@ -17,34 +18,40 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             
             if (deriveData.rushAttack)
             {
-                View.Animation.RushAttack.Set();
+                // TODO: config
+                View.Animation.TransitToState(EAnimationState.RushAttack, 0.05f);
             }
-            View.Animation.LightAttack.Set();
+            if (deriveData.delayDerive)
+            {
+                // TODO: generic
+                View.Animation.TransitToState(EAnimationState.Anby_DelayAttack, 0.05f);
+            }
             View.Animation.LightAttackDeriveLayer.Set(deriveData.deriveLayer);
         }
 
+        internal override void Exit()
+        {
+            base.Exit();
+            View.Animation.LightAttackDeriveLayer.Set(-1);
+        }
 
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
             // TODO: config
             // TODO: generic
-            if (phase == EActionPhase.Derive && controller.IsLightAttacking && deriveData.deriveLayer < 4)
+            if (phase == EActionPhase.Cancel && controller.IsLightAttacking && deriveData.deriveLayer < 4)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
                     new CharacterLightAttackDeriveData(deriveData.deriveLayer + 1));
                 return true;
             }
-            // if (phase == EActionPhase.DelayDerive && controller.IsLightAttacking && deriveData.deriveLayer == 3)
-            // {
-            //     if (FSM[ECharacterState.LightAttack] is CharacterActionState<CharacterLightAttackDeriveData> deriveState)
-            //     {
-            //         deriveState.InjectDeriveData(
-            //             new CharacterLightAttackDeriveData(deriveData.deriveLayer + 1, false, true));
-            //     }
-            //     FSM.ChangeState(ECharacterState.LightAttack);
-            //     return true;
-            // }
+            if (phase == EActionPhase.Delay && controller.IsLightAttacking && deriveData.deriveLayer == 3)
+            {
+                FSM.DeriveState(ECharacterState.LightAttack, 
+                    new CharacterLightAttackDeriveData(deriveData.deriveLayer + 1, false, true));
+                return true;
+            }
 
             return false;
         }
@@ -64,11 +71,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 return true;
             }
             
-            // if (phase >= EActionPhase.Derive && controller.IsEvading)
-            // {
-            //     FSM.ChangeState(ECharacterState.Evade);
-            //     return true;
-            // }
+            if (phase >= EActionPhase.Cancel && controller.IsEvading)
+            {
+                FSM.ChangeState(ECharacterState.Evade);
+                return true;
+            }
             return false;
         }
     }

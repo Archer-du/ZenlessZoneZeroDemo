@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
+using ZZZDemo.Runtime.Model.Character.View.Animation;
 using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 using ZZZDemo.Runtime.Model.Utils;
 using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
@@ -19,7 +20,8 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             View.Animation.Running.Set(true);
             if (controller.IsSharpTurn)
             {
-                View.Animation.TurnBack.Set();
+                // TODO: config
+                View.Animation.TransitToState(EAnimationState.TurnBack, 0.2f);
             }
         }
         internal override void Exit()
