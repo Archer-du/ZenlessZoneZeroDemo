@@ -67,6 +67,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 FSM.ChangeState(ECharacterState.Evade);
                 return true;
             }
+            if (!View.Animation.CheckTurnBack() && controller.IsHeavyAttacking)
+            {
+                FSM.ChangeState(ECharacterState.HeavyAttack);
+                return true;
+            }
             return false;
         }
 

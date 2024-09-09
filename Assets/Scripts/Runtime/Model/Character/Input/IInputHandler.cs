@@ -8,6 +8,7 @@ namespace ZZZDemo.Runtime.Model.Character.Input
         public IVirtualCamera LookAt { get; }
         public IVirtualButton EvadeButton { get; }
         public IVirtualButton LightAttackButton { get; }
+        public IVirtualButton HeavyAttackButton { get; }
     }
     
     public interface IVirtualJoyStick

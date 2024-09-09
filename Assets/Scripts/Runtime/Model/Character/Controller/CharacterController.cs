@@ -19,6 +19,7 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
         internal bool IsSharpTurn => canTurnBack && input.MoveJoyStick.Direction == -lastRunDirection;
         internal bool IsEvading => canEvade && input.EvadeButton.Requesting();
         internal bool IsLightAttacking => input.LightAttackButton.Requesting();
+        internal bool IsHeavyAttacking => input.HeavyAttackButton.Requesting();
 
         internal Vector2Int lastRunDirection;
         internal bool canTurnBack = false;
@@ -37,6 +38,7 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             characterFSM[ECharacterState.Run] = new CharacterRunState(this, characterFSM);
             characterFSM[ECharacterState.Evade] = new CharacterEvadeState(this, characterFSM);
             characterFSM[ECharacterState.LightAttack] = new CharacterLightAttackState(this, characterFSM);
+            characterFSM[ECharacterState.HeavyAttack] = new CharacterHeavyAttackState(this, characterFSM);
             characterFSM.Initialize(ECharacterState.Idle);
 
             timerManager = new CharacterTimerManager(this);

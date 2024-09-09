@@ -21,12 +21,20 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 // TODO: config
                 View.Animation.TransitToState(EAnimationState.RushAttack, 0.05f);
             }
-            if (deriveData.delayDerive)
+            else if (deriveData.delayDerive)
             {
                 // TODO: generic
                 View.Animation.TransitToState(EAnimationState.Anby_DelayAttack, 0.05f);
             }
-            View.Animation.LightAttackDeriveLayer.Set(deriveData.deriveLayer);
+            else
+            {
+                //TODO: config
+                if (deriveData.layer == 1)
+                {
+                    View.Animation.TransitToState(EAnimationState.LightAttack, 0.05f);
+                }
+            }
+            View.Animation.LightAttackDeriveLayer.Set(deriveData.layer);
         }
 
         internal override void Exit()
@@ -40,19 +48,30 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             if (base.CheckDeriveTransition()) return true;
             // TODO: config
             // TODO: generic
-            if (phase == EActionPhase.Cancel && controller.IsLightAttacking && deriveData.deriveLayer < 4)
+            if (deriveData.layer < 4 && phase == EActionPhase.Cancel && controller.IsLightAttacking)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData(deriveData.deriveLayer + 1));
+                    new CharacterLightAttackDeriveData(deriveData.layer + 1));
                 return true;
             }
-            if (phase == EActionPhase.Delay && controller.IsLightAttacking && deriveData.deriveLayer == 3)
+            if (deriveData.layer == 3 && phase == EActionPhase.Delay && controller.IsLightAttacking)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData(deriveData.deriveLayer + 1, false, true));
+                    new CharacterLightAttackDeriveData(deriveData.layer + 1, false, true));
                 return true;
             }
-
+            if (deriveData.layer == 3 && phase == EActionPhase.Cancel && controller.IsHeavyAttacking)
+            {
+                FSM.DeriveState(ECharacterState.HeavyAttack, 
+                    new CharacterHeavyAttackDeriveData(true));
+                return true;
+            }
+            if (deriveData.layer == 4 && deriveData.delayDerive && phase == EActionPhase.Cancel && controller.IsHeavyAttacking)
+            {
+                FSM.DeriveState(ECharacterState.HeavyAttack, 
+                    new CharacterHeavyAttackDeriveData(true));
+                return true;
+            }
             return false;
         }
 

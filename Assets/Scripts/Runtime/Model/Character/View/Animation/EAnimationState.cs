@@ -6,7 +6,11 @@ namespace ZZZDemo.Runtime.Model.Character.View.Animation
         Running,
         TurnBack,
         RushAttack,
+        LightAttack,
+        HeavyAttack,
         EvadeFront, EvadeBack,
+        
         Anby_DelayAttack,
+        Anby_DeriveHeavyAttack
     }
 }

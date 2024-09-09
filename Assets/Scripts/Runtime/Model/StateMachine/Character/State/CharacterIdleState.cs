@@ -34,6 +34,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 FSM.ChangeState(ECharacterState.LightAttack);
                 return true;
             }
+            if (controller.IsHeavyAttacking)
+            {
+                FSM.ChangeState(ECharacterState.HeavyAttack);
+                return true;
+            }
             return false;
         }
     }

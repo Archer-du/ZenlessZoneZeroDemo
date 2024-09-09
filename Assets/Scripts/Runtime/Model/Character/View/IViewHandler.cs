@@ -26,7 +26,6 @@ namespace View
         public IAnimParamBase<bool> Walking { get; }
         public IAnimParamBase<bool> Running { get; }
         public IAnimParamBase<float> WalkBlend { get; }
-        public IAnimParamBase LightAttack { get; }
         public IAnimParamBase<int> LightAttackDeriveLayer { get; }
         
         public bool CheckAnimatedRootRotation();
@@ -34,5 +33,7 @@ namespace View
         public EActionPhase GetActionPhase(EActionType type);
         public void TransitToState(EAnimationState state, float transitionDuration);
         public void TransitToStateNormalized(EAnimationState state, float normalizedDuration);
+        // public void TransitToAttackLayerState(EAnimationState state, float transitionDuration);
+        // public void TransitToAttackLayerStateNormalized(EAnimationState state, float normalizedDuration);
     }
 }

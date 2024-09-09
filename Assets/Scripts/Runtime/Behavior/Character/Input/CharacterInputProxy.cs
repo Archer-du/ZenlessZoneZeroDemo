@@ -109,6 +109,8 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
         private VirtualButton evadeButton;
         public IVirtualButton LightAttackButton => lightAttackButton;
         private VirtualButton lightAttackButton;
+        public IVirtualButton HeavyAttackButton => heavyAttackButton;
+        private VirtualButton heavyAttackButton;
         
         public void Awake()
         {
@@ -120,12 +122,14 @@ namespace ZZZDemo.Runtime.Behavior.Character.Input
             evadeButton = new(asset.FindActionMap("Battle").FindAction("Evade"), 0.2f);
             //TODO: config
             lightAttackButton = new(asset.FindActionMap("Battle").FindAction("LightAttack"), 0.2f);
+            heavyAttackButton = new(asset.FindActionMap("Battle").FindAction("HeavyAttack"), 0.2f);
         }
 
         public void Update()
         {
             evadeButton.Update(Time.deltaTime);
             lightAttackButton.Update(Time.deltaTime);
+            heavyAttackButton.Update(Time.deltaTime);
         }
         
         private void OnEnable()

@@ -83,26 +83,23 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
         private BoolAnimParam running;
         public IAnimParamBase<float> WalkBlend => walkBlend;
         private FloatAnimParam walkBlend;
-        public IAnimParamBase EvadeFront => evadeFront;
-        private TriggerAnimParam evadeFront;
-        public IAnimParamBase EvadeBack => evadeBack;
-        private TriggerAnimParam evadeBack;
-        public IAnimParamBase LightAttack => lightAttack;
-        private TriggerAnimParam lightAttack;
         public IAnimParamBase<int> LightAttackDeriveLayer => lightAttackDeriveLayer;
         private IntAnimParam lightAttackDeriveLayer;
         
         // TODO: config
-        public Dictionary<EAnimationState, int> animStateMap = new()
+        public readonly Dictionary<EAnimationState, int> animStateMap = new()
         {
             { EAnimationState.Walking, Animator.StringToHash("Walk_Blend")},
             { EAnimationState.Running, Animator.StringToHash("Run")},
             { EAnimationState.TurnBack, Animator.StringToHash("TurnBack_NonStop")},
             { EAnimationState.RushAttack, Animator.StringToHash("RushAttack_Start")},
+            { EAnimationState.LightAttack, Animator.StringToHash("LightAttack_01_Start")},
+            { EAnimationState.HeavyAttack, Animator.StringToHash("HeavyAttack")},
             { EAnimationState.EvadeFront, Animator.StringToHash("EvadeFront_Start")},
             { EAnimationState.EvadeBack, Animator.StringToHash("EvadeBack_Start")},
 
-            { EAnimationState.Anby_DelayAttack, Animator.StringToHash("LightAttackDelay_04_Start") }
+            { EAnimationState.Anby_DelayAttack, Animator.StringToHash("LightAttackDelay_04_Start") },
+            { EAnimationState.Anby_DeriveHeavyAttack, Animator.StringToHash("HeavyAttack_Derive") },
         };
         
         public AnimationComponent(Animator animator)
@@ -111,9 +108,6 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
             walking = new BoolAnimParam(animator, "Walking");
             running = new BoolAnimParam(animator, "Running");
             walkBlend = new FloatAnimParam(animator, "WalkBlend");
-            evadeFront = new TriggerAnimParam(animator, "EvadeFront");
-            evadeBack = new TriggerAnimParam(animator, "EvadeBack");
-            lightAttack = new TriggerAnimParam(animator, "LightAttack");
             lightAttackDeriveLayer = new IntAnimParam(animator, "LightAttackDeriveLayer");
         }
         
@@ -142,6 +136,12 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
             return EActionPhase.Terminate;
         }
 
+        /// <summary>
+        /// 逆天Unity CrossFade不能指定Interrupt Source，
+        /// 因此使用这个接口基本只能转移到ActionState，因为ActionState有Non-Stop阶段（Startup和Active），即便不指定Interrupt Source通常也没问题。
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="transitionDuration">必须小于ActionState的Non-Stop阶段持续时间</param>
         public void TransitToState(EAnimationState state, float transitionDuration)
         {
             animator.CrossFadeInFixedTime(animStateMap[state], transitionDuration);
@@ -158,10 +158,7 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
             {
                 return animator.GetNextAnimatorStateInfo(0);
             }
-            else
-            {
-                return animator.GetCurrentAnimatorStateInfo(0);
-            }
+            return animator.GetCurrentAnimatorStateInfo(0);
         }
 
         public EActionPhase actionPhase = EActionPhase.Terminate;
@@ -204,9 +201,17 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
         {
             // NOTE: 第一帧的animation event和直接获取动画状态有一帧间隔！
             // NOTE: 但是StateMachineBehavior不会！
+            // var animPhase = characterAnimation.GetActionPhase(EActionType.Attack);
+            // if(animPhase != characterAnimation.actionPhase)
+            //     Debug.Log(animPhase + "|" + characterAnimation.actionPhase);
+            
             var animPhase = characterAnimation.GetActionPhase(EActionType.Attack);
-            if(animPhase != characterAnimation.actionPhase)
-                Debug.Log(animPhase + "|" + characterAnimation.actionPhase);
+            if (animPhase == EActionPhase.Startup)
+            {
+               Debug.Log(animPhase);
+               if(animator.IsInTransition(0))
+                   Debug.Log("Is In Transition");
+            }
         }
 
         #endregion
