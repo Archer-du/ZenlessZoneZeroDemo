@@ -13,9 +13,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         protected override void TickLogic(float deltaTime)
         {
             base.TickLogic(deltaTime);
-            if (UseSmoothRotate())
+            if (controller.IsMoving && UseSmoothRotate())
             {
-                SmoothRotate(deltaTime);
+                // TODO: config
+                const float rotateResponseTime = 0.04f;
+                controller.SmoothRotateTowardsTargetDirection(deltaTime, rotateResponseTime);
             }
         }
 
@@ -26,24 +28,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             return false;
         }
 
-        protected virtual bool UseSmoothRotate() => true;
-
-        private void SmoothRotate(float deltaTime)
-        {
-            if (!controller.IsMoving) return;
-            
-            var targetDir = MovementUtils.GetHorizontalProjectionVector(Input.LookAt.GetLookAtDirection());
-            targetDir = MovementUtils.GetRotationByAxis(
-                MovementUtils.GetRelativeInputAngle(Input.MoveJoyStick.Value), Vector3.up) * targetDir;
-            float angle = MovementUtils.GetRelativeRotateAngle(View.Movement.GetCharacterForward(), targetDir);
-            // TODO: config
-            const float angleTolerance = 2.5f;
-            if (Mathf.Abs(angle) > angleTolerance)
-            {
-                // TODO: config
-                const float rotateResponseTime = 0.04f;
-                View.Movement.RotateCharacterHorizontal(angle * (deltaTime / rotateResponseTime));
-            }
-        }
+        protected bool UseSmoothRotate() => !View.Animation.CheckAnimatedRootRotation();
     }
 }

@@ -74,7 +74,5 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             }
             return false;
         }
-
-        protected override bool UseSmoothRotate() => !View.Animation.CheckAnimatedRootRotation();
     }
 }

@@ -1,5 +1,7 @@
-using ZZZDemo.Runtime.Model.Character.Controller;
+using UnityEngine;
 using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
+using ZZZDemo.Runtime.Model.Utils;
+using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
@@ -17,6 +19,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             base.Enter();
             phase = EActionPhase.Terminate;
+            if (controller.IsMoving)
+            {
+                // adjust rotation when enter action state
+                controller.SmoothRotateTowardsTargetDirection();
+            }
         }
         protected override void TickLogic(float deltaTime)
         {

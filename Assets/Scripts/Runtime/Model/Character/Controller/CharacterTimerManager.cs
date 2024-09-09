@@ -98,7 +98,6 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             TimerHandle timerHandle = new TimerHandle(this, guid);
             if (!timerMap.TryAdd(guid, new CharacterTimer(time, action, loop)))
             {
-                // TODO: LogError
                 return null;
             }
             return timerHandle;
