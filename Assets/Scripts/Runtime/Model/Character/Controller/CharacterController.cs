@@ -3,6 +3,7 @@ using View;
 using ZZZDemo.Runtime.Model.Character.Input;
 using ZZZDemo.Runtime.Model.StateMachine.Character;
 using ZZZDemo.Runtime.Model.StateMachine.Character.State;
+using ZZZDemo.Runtime.Model.Utils;
 
 namespace ZZZDemo.Runtime.Model.Character.Controller
 {
@@ -18,12 +19,13 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
         internal bool IsMoving => input.MoveJoyStick.Value != Vector2.zero;
         internal bool IsSharpTurn => canTurnBack && input.MoveJoyStick.Direction == -lastRunDirection;
         internal bool IsEvading => canEvade && input.EvadeButton.Requesting();
+        internal bool IsLightAttacking => input.LightAttackButton.Requesting();
+        internal bool IsHeavyAttacking => input.HeavyAttackButton.Requesting();
 
+        // TODO: blackboard member
         internal Vector2Int lastRunDirection;
         internal bool canTurnBack = false;
         internal bool canEvade = true;
-        // TODO: config
-        internal int evadeTimesRemain = 2;
 
         #endregion
         
@@ -37,21 +39,39 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             characterFSM[ECharacterState.Walk] = new CharacterWalkState(this, characterFSM);
             characterFSM[ECharacterState.Run] = new CharacterRunState(this, characterFSM);
             characterFSM[ECharacterState.Evade] = new CharacterEvadeState(this, characterFSM);
+            characterFSM[ECharacterState.LightAttack] = new CharacterLightAttackState(this, characterFSM);
+            characterFSM[ECharacterState.HeavyAttack] = new CharacterHeavyAttackState(this, characterFSM);
             characterFSM.Initialize(ECharacterState.Idle);
 
             timerManager = new CharacterTimerManager(this);
-
-            // TODO: config
-            timerManager.SetTimer(2f, () =>
-            {
-                if (evadeTimesRemain < 2) evadeTimesRemain++;
-            }, true);
         }
         
         public void Update(float deltaTime)
         {
             characterFSM.Update(deltaTime);
             timerManager.Update(deltaTime);
+        }
+        
+        internal void SmoothRotateTowardsTargetDirection(float deltaTime = 0, float responseTime = 0)
+        {
+            responseTime = Mathf.Clamp(responseTime, 0, 10);
+            var targetDir = MovementUtils.GetHorizontalProjectionVector(input.LookAt.GetLookAtDirection());
+            targetDir = MovementUtils.GetRotationByAxis(
+                MovementUtils.GetRelativeInputAngle(input.MoveJoyStick.Value), Vector3.up) * targetDir;
+            float angle = MovementUtils.GetRelativeRotateAngle(view.Movement.GetCharacterForward(), targetDir);
+            // TODO: config
+            const float angleTolerance = 2.5f;
+            if (Mathf.Abs(angle) > angleTolerance)
+            {
+                if (responseTime == 0)
+                {
+                    view.Movement.RotateCharacterHorizontal(angle);
+                }
+                else
+                {
+                    view.Movement.RotateCharacterHorizontal(angle * (deltaTime / responseTime));
+                }
+            }
         }
     }
 }

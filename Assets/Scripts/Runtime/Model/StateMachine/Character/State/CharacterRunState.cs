@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
+using ZZZDemo.Runtime.Model.Character.View.Animation;
+using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 using ZZZDemo.Runtime.Model.Utils;
 using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 using TimerHandle = ZZZDemo.Runtime.Model.Character.Controller.TimerHandle;
@@ -18,7 +20,8 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             View.Animation.Running.Set(true);
             if (controller.IsSharpTurn)
             {
-                View.Animation.TurnBack.Set();
+                // TODO: config
+                View.Animation.TransitToState(EAnimationState.TurnBack, 0.2f);
             }
         }
         internal override void Exit()
@@ -37,6 +40,19 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             if (controller.IsMoving)
                 controller.lastRunDirection = Input.MoveJoyStick.Direction;
         }
+
+        protected override bool CheckDeriveTransition()
+        {
+            if (base.CheckDeriveTransition()) return true;
+            if (!View.Animation.CheckTurnBack() && controller.IsLightAttacking)
+            {
+                FSM.DeriveState(ECharacterState.LightAttack, 
+                    new CharacterLightAttackDeriveData(1, true));
+                return true;
+            }
+            return false;
+        }
+
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
@@ -51,9 +67,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 FSM.ChangeState(ECharacterState.Evade);
                 return true;
             }
+            if (!View.Animation.CheckTurnBack() && controller.IsHeavyAttacking)
+            {
+                FSM.ChangeState(ECharacterState.HeavyAttack);
+                return true;
+            }
             return false;
         }
-
-        protected override bool UseSmoothRotate() => !View.Animation.CheckAnimatedRootRotation();
     }
 }

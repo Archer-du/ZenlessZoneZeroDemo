@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
+using ZZZDemo.Runtime.Model.StateMachine.Character;
 using ZZZDemo.Runtime.Model.StateMachine.Character.State;
 
 namespace View
@@ -25,12 +26,14 @@ namespace View
         public IAnimParamBase<bool> Walking { get; }
         public IAnimParamBase<bool> Running { get; }
         public IAnimParamBase<float> WalkBlend { get; }
-        public IAnimParamBase TurnBack { get; }
-        public IAnimParamBase EvadeFront { get; }
-        public IAnimParamBase EvadeBack { get; }
-
+        public IAnimParamBase<int> LightAttackDeriveLayer { get; }
+        
         public bool CheckAnimatedRootRotation();
         public bool CheckTurnBack();
-        public EEvadePhase GetEvadePhase();
+        public EActionPhase GetActionPhase(EActionType type);
+        public void TransitToState(EAnimationState state, float transitionDuration);
+        public void TransitToStateNormalized(EAnimationState state, float normalizedDuration);
+        // public void TransitToAttackLayerState(EAnimationState state, float transitionDuration);
+        // public void TransitToAttackLayerStateNormalized(EAnimationState state, float normalizedDuration);
     }
 }

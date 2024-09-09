@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace ZZZDemo.Runtime.Model.StateMachine
 {
-    public abstract class BaseStateMachine<T, TE> where T : BaseState<TE> where TE : Enum
+    internal abstract class BaseStateMachine<T, TE> where T : BaseState<TE> where TE : Enum
     {
-        public T PreviousState { get; private set; }
-        public T CurrentState { get; private set; }
+        protected T PreviousState { get; set; }
+        protected T CurrentState { get; set; }
 
         protected readonly Dictionary<TE, T> stateMap;
         
         public bool debugMode = true;
 
-        public T this[TE eState]
+        internal T this[TE eState]
         {
             get => stateMap[eState];
             set => stateMap.TryAdd(eState, value);

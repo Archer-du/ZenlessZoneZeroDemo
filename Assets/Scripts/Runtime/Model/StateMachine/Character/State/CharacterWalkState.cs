@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
+using ZZZDemo.Runtime.Model.Character.View.Animation;
 using ZZZDemo.Runtime.Model.Utils;
 using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 
@@ -29,9 +30,8 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         protected override void TickLogic(float deltaTime)
         {
             base.TickLogic(deltaTime);
-
             // TODO: config
-            const float walkToRunSpeed = 0.4f;
+            const float walkToRunSpeed = 0.2f;
             walkToRunFactor += walkToRunSpeed * deltaTime;
             View.Animation.WalkBlend.Set(walkToRunFactor);
         }
@@ -56,7 +56,17 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             {
                 FSM.ChangeState(ECharacterState.Run);
             }
-
+            
+            if (controller.IsLightAttacking)
+            {
+                FSM.ChangeState(ECharacterState.LightAttack);
+                return true;
+            }
+            if (controller.IsHeavyAttacking)
+            {
+                FSM.ChangeState(ECharacterState.HeavyAttack);
+                return true;
+            }
             return false;
         }
     }

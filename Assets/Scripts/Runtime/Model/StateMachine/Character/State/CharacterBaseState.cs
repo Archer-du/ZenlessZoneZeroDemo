@@ -2,7 +2,7 @@
 using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Character.Input;
 
-namespace ZZZDemo.Runtime.Model.StateMachine.Character
+namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
     internal abstract class CharacterBaseState : BaseState<ECharacterState>
     {
@@ -15,6 +15,16 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character
         {
             this.controller = controller;
             FSM = stateMachine;
+        }
+        
+        protected virtual bool CheckDeriveTransition() => false;
+        protected override bool CheckTransition()
+        {
+            if (CheckDeriveTransition()) return true;
+            
+            if (base.CheckTransition()) return true;
+
+            return false;
         }
     }
 }

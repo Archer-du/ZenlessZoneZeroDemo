@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff5f6a6e-54aa-4925-af0e-b26570c9802a" name="Changes" comment="" />
+    <list default="true" id="3e9e49b4-a0d5-48f8-bef2-166f28788c4a" name="Changes" comment="feat: heavy attack &amp; derive light/heavy attack &amp; optimize view layer FSM and params">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterMoveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterMoveState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,95 +19,56 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;history&quot;: [
-    {
-      &quot;state&quot;: &quot;OPEN&quot;,
-      &quot;author&quot;: &quot;Archer-du&quot;
-    }
-  ],
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;author&quot;: &quot;Archer-du&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Archer-du"
   }
-}</component>
-  <component name="GitHubPullRequestState">{
-  &quot;prStates&quot;: [
-    {
-      &quot;id&quot;: {
-        &quot;id&quot;: &quot;PR_kwDOMeuDsM56SV5Z&quot;,
-        &quot;number&quot;: 1
-      },
-      &quot;lastSeen&quot;: 1725504231147
-    }
-  ]
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Archer-du/ZenlessZoneZeroDemo.git&quot;,
-    &quot;accountId&quot;: &quot;3eb67eff-eaca-4167-96bd-aa98c6f862a4&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Archer-du/ZenlessZoneZeroDemo.git",
+    "accountId": "3eb67eff-eaca-4167-96bd-aa98c6f862a4"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/183ecb3fe7394c109b59eb8f3fdcf2e727800/93/be3c374d/AnimatorStateInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/183ecb3fe7394c109b59eb8f3fdcf2e727800/a9/cc098719/Animator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/76/d1cb475f/Action.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/e2/e6e5235d/Action`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/83c38a410631422cb9ff71f779fb5969175e00/54/9a7b0d37/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/83c38a410631422cb9ff71f779fb5969175e00/67/4fc10a90/Vector3.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/83c38a410631422cb9ff71f779fb5969175e00/74/1dd4d2bb/Vector2.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/83c38a410631422cb9ff71f779fb5969175e00/81/453094f1/Transform.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/83c38a410631422cb9ff71f779fb5969175e00/86/94ff2155/Debug.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/83c38a410631422cb9ff71f779fb5969175e00/ef/be113f0e/Vector2Int.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Animation/Anbi_Movement.fbx.meta" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Animation/Anbi_Movement.fbx.meta" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Animation/Avatar_Female_Size02_Anbi_Ani_Walk_End.anim" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Animation/Avatar_Female_Size02_Anbi_Ani_Walk_End.anim.meta" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/InputSystem.meta" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/InputSystem/InputSystem.inputsettings.asset" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/Character/Controller/CharacterTimerManager.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterMoveState.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterMoveState.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/ECharacterState.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/ECharacterState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Behavior/Character/Input/CharacterInputProxy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Behavior/Character/View/CharacterViewProxy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Behavior/Character/View/CharacterViewProxy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Behavior/Character/View/CharacterViewProxy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Behavior/Character/View/CharacterViewProxy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/Character/Input/IInputHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/Character/View/Animation/EAnimationState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/Character/View/IViewHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterLightAttackDeriveData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterIdleState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterLightAttackState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="2laU12k88nVlVzcen8xUpbx4Ncz" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2lofQMYKxFD4JmEHEScTxNTnGPz" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "XThreadsFramesViewSplitterKey": "0.42184874",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "#2 on develop",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.tabs",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -153,41 +120,22 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ff5f6a6e-54aa-4925-af0e-b26570c9802a" name="Changes" comment="" />
-      <created>1725417462142</created>
+      <changelist id="3e9e49b4-a0d5-48f8-bef2-166f28788c4a" name="Changes" comment="" />
+      <created>1725851333626</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1725417462142</updated>
-      <workItem from="1725417464381" duration="1935000" />
-      <workItem from="1725427208795" duration="20771000" />
-      <workItem from="1725503429106" duration="457000" />
-      <workItem from="1725504050089" duration="26580000" />
+      <updated>1725851333626</updated>
+      <workItem from="1725851336511" duration="14927000" />
     </task>
-    <task id="LOCAL-00001" summary="feat: idle and walk state">
+    <task id="LOCAL-00001" summary="feat: heavy attack &amp; derive light/heavy attack &amp; optimize view layer FSM and params">
       <option name="closed" value="true" />
-      <created>1725451387298</created>
+      <created>1725867116750</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1725451387298</updated>
+      <updated>1725867116750</updated>
     </task>
-    <task id="LOCAL-00002" summary="feat: turn back running &amp; fix redundant rotate while running towards camera">
-      <option name="closed" value="true" />
-      <created>1725516128226</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1725516128226</updated>
-    </task>
-    <task id="LOCAL-00003" summary="opt: timer manager &amp; optimize/reformat code">
-      <option name="closed" value="true" />
-      <created>1725525287033</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1725525287033</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,19 +154,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/develop" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -226,30 +162,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: idle and walk state" />
-    <MESSAGE value="feat: turn back running &amp; fix redundant rotate while running towards camera" />
-    <MESSAGE value="opt: timer manager &amp; optimize/reformat code" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs</url>
-          <line>25</line>
-          <properties documentPath="G:\UnityProjects\ZenlessZoneZeroDemo\Assets\Scripts\Runtime\Model\StateMachine\Character\State\CharacterEvadeState.cs" containingFunctionPresentation="Method 'Enter'" />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <watches-manager>
-      <configuration name="UNITY_DEBUG_RUN_CONFIGURATION">
-        <watch expression="this.turnBackTimerHandle.ownerManager.controller.canTurnBack" />
-      </configuration>
-    </watches-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+    <MESSAGE value="feat: heavy attack &amp; derive light/heavy attack &amp; optimize view layer FSM and params" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: heavy attack &amp; derive light/heavy attack &amp; optimize view layer FSM and params" />
   </component>
 </project>
