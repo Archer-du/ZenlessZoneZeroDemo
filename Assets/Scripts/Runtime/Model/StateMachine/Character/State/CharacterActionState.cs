@@ -5,7 +5,7 @@ using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.Character
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
-    internal class CharacterActionState : CharacterBaseState
+    internal abstract class CharacterActionState : CharacterBaseState
     {
         protected EActionType actionType;
         protected EActionPhase phase = EActionPhase.Terminate;
@@ -30,6 +30,5 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             base.TickLogic(deltaTime);
             phase = View.Animation.GetActionPhase(actionType);
         }
-        internal virtual void InjectDeriveData(CharacterDeriveData deriveData) {}
     }
 }

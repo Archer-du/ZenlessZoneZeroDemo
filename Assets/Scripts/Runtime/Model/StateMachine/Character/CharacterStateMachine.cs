@@ -12,9 +12,9 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character
                 CurrentState.Exit();
                 PreviousState = CurrentState;
                 CurrentState = this[newState];
-                if (CurrentState is CharacterActionState actionState)
+                if (CurrentState is CharacterDerivableState derivableState)
                 {
-                    actionState.InjectDeriveData(data);
+                    derivableState.InjectDeriveData(data);
                 }
                 else
                 {

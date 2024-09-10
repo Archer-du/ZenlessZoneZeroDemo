@@ -4,21 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e9e49b4-a0d5-48f8-bef2-166f28788c4a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Config.meta" afterDir="false" />
+    <list default="true" id="3e9e49b4-a0d5-48f8-bef2-166f28788c4a" name="Changes" comment="opt: extract global param/config &amp; fix light/heavy attack derive errors">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/CharacterBehaviorManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/CharacterBehaviorManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterControllerManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterControllerManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/AnbyDemara.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ZenlessZoneZeroDemo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/SO/GlobalParams.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/SO/GlobalParams.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/CharacterBehavior.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Behavior/Character/CharacterBehavior.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Config/GlobalConstants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/Config/GlobalConstants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterStateMachine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterDeriveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterDeriveData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterEvadeDeriveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterEvadeDeriveData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterHeavyAttackDeriveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterHeavyAttackDeriveData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterHeavyAttackDeriveData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterHeavyAttackDeriveData.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterLightAttackDeriveData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterLightAttackDeriveData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterLightAttackDeriveData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterLightAttackDeriveData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterDerivableState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterDerivableState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterHeavyAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterHeavyAttackState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterLightAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterLightAttackState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterMoveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterMoveState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterHeavyAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/AnbyDemara/AnbyDemaraHeavyAttackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterHeavyAttackState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/AnbyDemara/AnbyDemaraHeavyAttackState.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterLightAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/AnbyDemara/AnbyDemaraLightAttackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterLightAttackState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/AnbyDemara/AnbyDemaraLightAttackState.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterWalkState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +58,19 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/183ecb3fe7394c109b59eb8f3fdcf2e727800/a9/cc098719/Animator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/83c38a410631422cb9ff71f779fb5969175e00/36/d1b4a507/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Resources/Character/Anbi/Anbi_AnimStateMachine.controller" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Behavior/Character/CharacterBehavior.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/Character/Controller/CharacterController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/CharacterStateMachine.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterDeriveData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterDeriveData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/DeriveData/CharacterEvadeDeriveData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterActionState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterDerivableState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterEvadeState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://G:/UnityProjects/ZenlessZoneZeroDemo/Assets/Scripts/Runtime/Model/StateMachine/Character/State/CharacterRunState.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -128,7 +150,7 @@
       <option name="presentableId" value="Default" />
       <updated>1725851333626</updated>
       <workItem from="1725851336511" duration="14927000" />
-      <workItem from="1725943404224" duration="3295000" />
+      <workItem from="1725943404224" duration="21207000" />
     </task>
     <task id="LOCAL-00001" summary="feat: heavy attack &amp; derive light/heavy attack &amp; optimize view layer FSM and params">
       <option name="closed" value="true" />
@@ -154,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725884495990</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="opt: extract global param/config &amp; fix light/heavy attack derive errors">
+      <option name="closed" value="true" />
+      <created>1725947100750</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1725947100750</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,6 +213,7 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="feat: heavy attack &amp; derive light/heavy attack &amp; optimize view layer FSM and params" />
     <MESSAGE value="sync: building basic config layer" />
-    <option name="LAST_COMMIT_MESSAGE" value="sync: building basic config layer" />
+    <MESSAGE value="opt: extract global param/config &amp; fix light/heavy attack derive errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="opt: extract global param/config &amp; fix light/heavy attack derive errors" />
   </component>
 </project>

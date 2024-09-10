@@ -5,8 +5,10 @@ using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
-    internal class CharacterEvadeState : CharacterDerivableState<CharacterEvadeDeriveData>
+    internal class CharacterEvadeState : CharacterDerivableState
     {
+        protected new CharacterEvadeDeriveData deriveData => base.deriveData as CharacterEvadeDeriveData;
+        
         private TimerHandle evadeColdDownHandle;
         public CharacterEvadeState(CharacterController controller, CharacterStateMachine stateMachine) 
             : base(controller, stateMachine, ECharacterState.Evade, EActionType.Evade)
@@ -16,14 +18,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         internal override void Enter()
         {
             base.Enter();
-            switch (deriveData.type)
+            if (deriveData.reentrant)
             {
-                case CharacterEvadeDeriveData.DeriveType.Reentrant:
-                    controller.canEvade = false;
-                    evadeColdDownHandle?.Invalidate();
-                    evadeColdDownHandle = controller.timerManager.SetTimer(GlobalConstants.continuousEvadeCooldownTime, 
-                        () => { controller.canEvade = true; });
-                    break;
+                controller.canEvade = false;
+                evadeColdDownHandle?.Invalidate();
+                evadeColdDownHandle = controller.timerManager.SetTimer(GlobalConstants.continuousEvadeCooldownTime, 
+                    () => { controller.canEvade = true; });
             }
             
             Input.EvadeButton.Consume();
@@ -46,13 +46,19 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             if (phase == EActionPhase.Cancel && controller.IsEvading)
             {
                 FSM.DeriveState(ECharacterState.Evade, 
-                    new CharacterEvadeDeriveData(CharacterEvadeDeriveData.DeriveType.Reentrant));
+                    new CharacterEvadeDeriveData
+                    {
+                        reentrant = true,
+                    });
                 return true;
             }
             if (phase == EActionPhase.Active && controller.IsLightAttacking)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData(1, true));
+                    new CharacterLightAttackDeriveData
+                    {
+                        rushAttack = true,
+                    });
                 return true;
             }
             return false;
@@ -71,7 +77,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 FSM.ChangeState(ECharacterState.Walk);
                 return true;
             }
-            
             if (phase == EActionPhase.Cancel && controller.IsMoving)
             {
                 FSM.ChangeState(ECharacterState.Run);
@@ -79,5 +84,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             }
             return false;
         }
+
+        protected override CharacterDeriveData GetDefaultData() => new CharacterEvadeDeriveData();
     }
 }

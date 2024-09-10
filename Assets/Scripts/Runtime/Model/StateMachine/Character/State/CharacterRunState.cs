@@ -48,7 +48,10 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             if (!View.Animation.CheckTurnBack() && controller.IsLightAttacking)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData(1, true));
+                    new CharacterLightAttackDeriveData
+                    {
+                        rushAttack = true,
+                    });
                 return true;
             }
             return false;

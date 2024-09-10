@@ -2,18 +2,11 @@
 {
     internal class CharacterHeavyAttackDeriveData : CharacterDeriveData
     {
-        internal static CharacterHeavyAttackDeriveData defaultData = new();
-        internal bool perfectDerive;
-        internal bool derivedFromDelayAttack;
-        public CharacterHeavyAttackDeriveData(bool perfectDerive, bool derivedFromDelayAttack = false)
-        {
-            this.perfectDerive = perfectDerive;
-            this.derivedFromDelayAttack = derivedFromDelayAttack;
-        }
-        public CharacterHeavyAttackDeriveData()
-        {
-            perfectDerive = false;
-            this.derivedFromDelayAttack = false;
-        }
+    }
+
+    internal class AnbyDemaraHeavyAttackDeriveData : CharacterHeavyAttackDeriveData
+    {
+        internal bool perfectDerive = false;
+        internal bool derivedFromDelayAttack = false;
     }
 }
