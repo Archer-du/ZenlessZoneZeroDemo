@@ -46,7 +46,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
-            // TODO: config
+            if (deriveData.layer == 3 && phase == EActionPhase.Cancel && controller.IsHeavyAttacking)
+            {
+                FSM.DeriveState(ECharacterState.HeavyAttack, 
+                    new CharacterHeavyAttackDeriveData(true));
+                return true;
+            }
             // TODO: generic
             if (deriveData.layer < 4 && phase == EActionPhase.Cancel && controller.IsLightAttacking)
             {
@@ -60,16 +65,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                     new CharacterLightAttackDeriveData(deriveData.layer + 1, false, true));
                 return true;
             }
-            if (deriveData.layer == 3 && phase == EActionPhase.Cancel && controller.IsHeavyAttacking)
+            if (deriveData.layer == 4 && deriveData.delayDerive && !deriveData.derivedFromHeavyAttack 
+                && phase == EActionPhase.Cancel && controller.IsHeavyAttacking)
             {
                 FSM.DeriveState(ECharacterState.HeavyAttack, 
-                    new CharacterHeavyAttackDeriveData(true));
-                return true;
-            }
-            if (deriveData.layer == 4 && deriveData.delayDerive && phase == EActionPhase.Cancel && controller.IsHeavyAttacking)
-            {
-                FSM.DeriveState(ECharacterState.HeavyAttack, 
-                    new CharacterHeavyAttackDeriveData(true));
+                    new CharacterHeavyAttackDeriveData(true, true));
                 return true;
             }
             return false;

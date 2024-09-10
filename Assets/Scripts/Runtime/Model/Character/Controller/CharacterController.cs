@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using View;
 using ZZZDemo.Runtime.Model.Character.Input;
+using ZZZDemo.Runtime.Model.Config;
 using ZZZDemo.Runtime.Model.StateMachine.Character;
 using ZZZDemo.Runtime.Model.StateMachine.Character.State;
 using ZZZDemo.Runtime.Model.Utils;
@@ -59,9 +60,7 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             targetDir = MovementUtils.GetRotationByAxis(
                 MovementUtils.GetRelativeInputAngle(input.MoveJoyStick.Value), Vector3.up) * targetDir;
             float angle = MovementUtils.GetRelativeRotateAngle(view.Movement.GetCharacterForward(), targetDir);
-            // TODO: config
-            const float angleTolerance = 2.5f;
-            if (Mathf.Abs(angle) > angleTolerance)
+            if (Mathf.Abs(angle) > GlobalConstants.smoothRotateAngleTolerance)
             {
                 if (responseTime == 0)
                 {

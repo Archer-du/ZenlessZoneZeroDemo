@@ -1,5 +1,6 @@
 ﻿using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
+using ZZZDemo.Runtime.Model.Config;
 using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
@@ -20,8 +21,8 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 case CharacterEvadeDeriveData.DeriveType.Reentrant:
                     controller.canEvade = false;
                     evadeColdDownHandle?.Invalidate();
-                    //TODO: config
-                    evadeColdDownHandle = controller.timerManager.SetTimer(0.8f, () => { controller.canEvade = true; });
+                    evadeColdDownHandle = controller.timerManager.SetTimer(GlobalConstants.continuousEvadeCooldownTime, 
+                        () => { controller.canEvade = true; });
                     break;
             }
             

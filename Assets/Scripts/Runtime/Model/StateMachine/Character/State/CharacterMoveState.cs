@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using ZZZDemo.Runtime.Model.Config;
 using ZZZDemo.Runtime.Model.Utils;
 using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
 
@@ -15,9 +16,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             base.TickLogic(deltaTime);
             if (controller.IsMoving && UseSmoothRotate())
             {
-                // TODO: config
-                const float rotateResponseTime = 0.04f;
-                controller.SmoothRotateTowardsTargetDirection(deltaTime, rotateResponseTime);
+                controller.SmoothRotateTowardsTargetDirection(deltaTime, GlobalConstants.smoothRotateResponseTime);
             }
         }
 

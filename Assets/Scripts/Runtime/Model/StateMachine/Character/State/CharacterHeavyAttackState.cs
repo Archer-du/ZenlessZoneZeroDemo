@@ -31,10 +31,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             if (base.CheckDeriveTransition()) return true;
             // TODO: config
-            if (deriveData.perfectDerive && phase == EActionPhase.Cancel && controller.IsLightAttacking)
+            if (deriveData.perfectDerive && !deriveData.derivedFromDelayAttack
+                && phase == EActionPhase.Cancel && controller.IsLightAttacking)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData(4, false, true));
+                    new CharacterLightAttackDeriveData(4, false, true, true));
                 return true;
             }
             return false;
