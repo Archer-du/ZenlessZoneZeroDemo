@@ -4,9 +4,8 @@ using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
 {
-    internal class AnbyDemaraLightAttackState : CharacterDerivableState
+    internal class AnbyDemaraLightAttackState : CharacterDerivableState<AnbyDemaraLightAttackDeriveData>
     {
-        protected new AnbyDemaraLightAttackDeriveData deriveData => base.deriveData as AnbyDemaraLightAttackDeriveData;
         public AnbyDemaraLightAttackState(CharacterController controller, CharacterStateMachine stateMachine) 
             : base(controller, stateMachine, ECharacterState.LightAttack, EActionType.Attack)
         {
@@ -17,8 +16,9 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
             base.Enter();
             Input.LightAttackButton.Consume();
             
-            if (deriveData.rushAttack)
+            if (controller.rushAttack)
             {
+                controller.rushAttack = false;
                 // TODO: config
                 View.Animation.TransitToState(EAnimationState.RushAttack, 0.05f);
             }
@@ -47,7 +47,8 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
-            if (deriveData.layer == 3 && phase == EActionPhase.Cancel && controller.IsHeavyAttacking)
+            if (phase == EActionPhase.Cancel 
+                && deriveData.layer == 3 && controller.IsHeavyAttacking)
             {
                 FSM.DeriveState(ECharacterState.HeavyAttack, 
                     new AnbyDemaraHeavyAttackDeriveData()
@@ -57,16 +58,18 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
                 return true;
             }
             // TODO: generic
-            if (deriveData.layer < 4 && phase == EActionPhase.Cancel && controller.IsLightAttacking)
+            if (phase == EActionPhase.Cancel 
+                && deriveData.layer < 4 && controller.IsLightAttacking)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData()
+                    new AnbyDemaraLightAttackDeriveData()
                     {
                         layer = deriveData.layer + 1,
                     });
                 return true;
             }
-            if (deriveData.layer == 3 && phase == EActionPhase.Delay && controller.IsLightAttacking)
+            if (phase == EActionPhase.Delay 
+                && deriveData.layer == 3 && controller.IsLightAttacking)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
                     new AnbyDemaraLightAttackDeriveData()
@@ -76,8 +79,9 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
                     });
                 return true;
             }
-            if (deriveData.layer == 4 && deriveData.delayDerive && !deriveData.derivedFromHeavyAttack 
-                && phase == EActionPhase.Cancel && controller.IsHeavyAttacking)
+            if (phase == EActionPhase.Cancel 
+                && deriveData.layer == 4 && deriveData.delayDerive && !deriveData.derivedFromHeavyAttack 
+                && controller.IsHeavyAttacking)
             {
                 FSM.DeriveState(ECharacterState.HeavyAttack, 
                     new AnbyDemaraHeavyAttackDeriveData()
@@ -104,7 +108,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
                 FSM.ChangeState(ECharacterState.Walk);
                 return true;
             }
-            
             if (phase >= EActionPhase.Cancel && controller.IsEvading)
             {
                 FSM.ChangeState(ECharacterState.Evade);
@@ -112,7 +115,5 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
             }
             return false;
         }
-
-        protected override CharacterDeriveData GetDefaultData() => new AnbyDemaraLightAttackDeriveData();
     }
 }

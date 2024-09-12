@@ -8,17 +8,28 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
     /// </summary>
     internal abstract class CharacterDerivableState : CharacterActionState
     {
-        protected CharacterDeriveData deriveData;
         internal CharacterDerivableState(CharacterController controller, CharacterStateMachine stateMachine, 
             ECharacterState type, EActionType actionType) 
             : base(controller, stateMachine, type, actionType)
         {
         }
+        internal abstract void InjectDeriveData(CharacterDeriveData data);
+    }
 
+    internal abstract class CharacterDerivableState<T> : CharacterDerivableState 
+        where T : CharacterDeriveData, new()
+    {
+        protected T deriveData;
+        protected CharacterDerivableState(CharacterController controller, CharacterStateMachine stateMachine, 
+            ECharacterState type, EActionType actionType) 
+            : base(controller, stateMachine, type, actionType)
+        {
+        }
+        
         internal override void Enter()
         {
             base.Enter();
-            deriveData ??= GetDefaultData();
+            deriveData ??= new T();
         }
 
         internal override void Exit()
@@ -27,9 +38,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             // clean up derive data
             deriveData = null;
         }
-        
-        internal void InjectDeriveData(CharacterDeriveData data) => deriveData = data;
-
-        protected abstract CharacterDeriveData GetDefaultData();
+        internal override void InjectDeriveData(CharacterDeriveData data) => deriveData = data as T;
     }
 }

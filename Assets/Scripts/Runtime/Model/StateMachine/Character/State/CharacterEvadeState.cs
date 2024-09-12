@@ -5,10 +5,8 @@ using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 {
-    internal class CharacterEvadeState : CharacterDerivableState
+    internal class CharacterEvadeState : CharacterDerivableState<CharacterEvadeDeriveData>
     {
-        protected new CharacterEvadeDeriveData deriveData => base.deriveData as CharacterEvadeDeriveData;
-        
         private TimerHandle evadeColdDownHandle;
         public CharacterEvadeState(CharacterController controller, CharacterStateMachine stateMachine) 
             : base(controller, stateMachine, ECharacterState.Evade, EActionType.Evade)
@@ -18,7 +16,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         internal override void Enter()
         {
             base.Enter();
-            if (deriveData.reentrant)
+            if (deriveData.layer == 2)
             {
                 controller.canEvade = false;
                 evadeColdDownHandle?.Invalidate();
@@ -43,21 +41,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
-            if (phase == EActionPhase.Cancel && controller.IsEvading)
+            if (phase == EActionPhase.Cancel && controller.IsEvading && deriveData.layer < 2)
             {
                 FSM.DeriveState(ECharacterState.Evade, 
                     new CharacterEvadeDeriveData
                     {
-                        reentrant = true,
-                    });
-                return true;
-            }
-            if (phase == EActionPhase.Active && controller.IsLightAttacking)
-            {
-                FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData
-                    {
-                        rushAttack = true,
+                        layer = 2,
                     });
                 return true;
             }
@@ -67,6 +56,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             if (base.CheckTransition()) return true;
             
+            if (phase == EActionPhase.Active && controller.IsLightAttacking)
+            {
+                controller.rushAttack = true;
+                FSM.ChangeState(ECharacterState.LightAttack);
+                return true;
+            }
             if (phase == EActionPhase.Recovery && !controller.IsMoving)
             {
                 FSM.ChangeState(ECharacterState.Idle);
@@ -84,7 +79,5 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             }
             return false;
         }
-
-        protected override CharacterDeriveData GetDefaultData() => new CharacterEvadeDeriveData();
     }
 }

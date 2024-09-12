@@ -42,25 +42,16 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 controller.lastRunDirection = Input.MoveJoyStick.Direction;
         }
 
-        protected override bool CheckDeriveTransition()
-        {
-            if (base.CheckDeriveTransition()) return true;
-            if (!View.Animation.CheckTurnBack() && controller.IsLightAttacking)
-            {
-                FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData
-                    {
-                        rushAttack = true,
-                    });
-                return true;
-            }
-            return false;
-        }
-
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
             
+            if (!View.Animation.CheckTurnBack() && controller.IsLightAttacking)
+            {
+                controller.rushAttack = true;
+                FSM.ChangeState(ECharacterState.LightAttack);
+                return true;
+            }
             if (!View.Animation.CheckTurnBack() && !controller.IsMoving)
             {
                 FSM.ChangeState(ECharacterState.Idle);

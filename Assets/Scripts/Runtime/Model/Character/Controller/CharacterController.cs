@@ -4,6 +4,7 @@ using ZZZDemo.Runtime.Model.Character.Input;
 using ZZZDemo.Runtime.Model.Config;
 using ZZZDemo.Runtime.Model.StateMachine.Character;
 using ZZZDemo.Runtime.Model.StateMachine.Character.State;
+using ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara;
 using ZZZDemo.Runtime.Model.Utils;
 
 namespace ZZZDemo.Runtime.Model.Character.Controller
@@ -27,6 +28,7 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
         internal Vector2Int lastRunDirection;
         internal bool canTurnBack = false;
         internal bool canEvade = true;
+        internal bool rushAttack = false;
 
         #endregion
         
@@ -40,8 +42,8 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             characterFSM[ECharacterState.Walk] = new CharacterWalkState(this, characterFSM);
             characterFSM[ECharacterState.Run] = new CharacterRunState(this, characterFSM);
             characterFSM[ECharacterState.Evade] = new CharacterEvadeState(this, characterFSM);
-            characterFSM[ECharacterState.LightAttack] = new CharacterLightAttackState(this, characterFSM);
-            characterFSM[ECharacterState.HeavyAttack] = new CharacterHeavyAttackState(this, characterFSM);
+            characterFSM[ECharacterState.LightAttack] = new AnbyDemaraLightAttackState(this, characterFSM);
+            characterFSM[ECharacterState.HeavyAttack] = new AnbyDemaraHeavyAttackState(this, characterFSM);
             characterFSM.Initialize(ECharacterState.Idle);
 
             timerManager = new CharacterTimerManager(this);

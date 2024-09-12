@@ -4,9 +4,8 @@ using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
 {
-    internal class AnbyDemaraHeavyAttackState : CharacterDerivableState
+    internal class AnbyDemaraHeavyAttackState : CharacterDerivableState<AnbyDemaraHeavyAttackDeriveData>
     {
-        protected new AnbyDemaraHeavyAttackDeriveData deriveData => base.deriveData as AnbyDemaraHeavyAttackDeriveData;
         internal AnbyDemaraHeavyAttackState(CharacterController controller, CharacterStateMachine stateMachine) 
             : base(controller, stateMachine, ECharacterState.HeavyAttack, EActionType.Attack)
         {
@@ -33,8 +32,8 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
         {
             if (base.CheckDeriveTransition()) return true;
             // TODO: config
-            if (deriveData.perfectDerive && !deriveData.derivedFromDelayAttack
-                && phase == EActionPhase.Cancel && controller.IsLightAttacking)
+            if (phase == EActionPhase.Cancel 
+                && deriveData.perfectDerive && !deriveData.derivedFromDelayAttack && controller.IsLightAttacking)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
                     new AnbyDemaraLightAttackDeriveData()
@@ -70,7 +69,5 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
             }
             return false;
         }
-
-        protected override CharacterDeriveData GetDefaultData() => new AnbyDemaraHeavyAttackDeriveData();
     }
 }
