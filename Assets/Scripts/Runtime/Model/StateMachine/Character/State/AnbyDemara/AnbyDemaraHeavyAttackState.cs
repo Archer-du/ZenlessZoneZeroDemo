@@ -2,11 +2,11 @@ using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
 using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 
-namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
+namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
 {
-    internal class CharacterHeavyAttackState : CharacterDerivableState<CharacterHeavyAttackDeriveData>
+    internal class AnbyDemaraHeavyAttackState : CharacterDerivableState<AnbyDemaraHeavyAttackDeriveData>
     {
-        internal CharacterHeavyAttackState(CharacterController controller, CharacterStateMachine stateMachine) 
+        internal AnbyDemaraHeavyAttackState(CharacterController controller, CharacterStateMachine stateMachine) 
             : base(controller, stateMachine, ECharacterState.HeavyAttack, EActionType.Attack)
         {
         }
@@ -27,14 +27,21 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 View.Animation.TransitToState(EAnimationState.HeavyAttack, 0.05f);
             }
         }
+
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
             // TODO: config
-            if (deriveData.perfectDerive && phase == EActionPhase.Cancel && controller.IsLightAttacking)
+            if (phase == EActionPhase.Cancel 
+                && deriveData.perfectDerive && !deriveData.derivedFromDelayAttack && controller.IsLightAttacking)
             {
                 FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData(4, false, true));
+                    new AnbyDemaraLightAttackDeriveData()
+                    {
+                        layer = 4,
+                        derivedFromHeavyAttack = true,
+                        delayDerive = true,
+                    });
                 return true;
             }
             return false;

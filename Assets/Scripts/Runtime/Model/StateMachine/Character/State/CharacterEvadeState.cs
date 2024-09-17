@@ -1,5 +1,6 @@
 ﻿using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
+using ZZZDemo.Runtime.Model.Config;
 using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 
 namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
@@ -15,14 +16,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         internal override void Enter()
         {
             base.Enter();
-            switch (deriveData.type)
+            if (deriveData.layer == 2)
             {
-                case CharacterEvadeDeriveData.DeriveType.Reentrant:
-                    controller.canEvade = false;
-                    evadeColdDownHandle?.Invalidate();
-                    //TODO: config
-                    evadeColdDownHandle = controller.timerManager.SetTimer(0.8f, () => { controller.canEvade = true; });
-                    break;
+                controller.canEvade = false;
+                evadeColdDownHandle?.Invalidate();
+                evadeColdDownHandle = controller.timerManager.SetTimer(GlobalConstants.continuousEvadeCooldownTime, 
+                    () => { controller.canEvade = true; });
             }
             
             Input.EvadeButton.Consume();
@@ -39,19 +38,22 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             }
         }
 
+        protected override void TickLogic(float deltaTime)
+        {
+            base.TickLogic(deltaTime);
+            controller.canRushAttack = phase == EActionPhase.Active;
+        }
+
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
-            if (phase == EActionPhase.Cancel && controller.IsEvading)
+            if (phase == EActionPhase.Cancel && controller.IsEvading && deriveData.layer < 2)
             {
                 FSM.DeriveState(ECharacterState.Evade, 
-                    new CharacterEvadeDeriveData(CharacterEvadeDeriveData.DeriveType.Reentrant));
-                return true;
-            }
-            if (phase == EActionPhase.Active && controller.IsLightAttacking)
-            {
-                FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData(1, true));
+                    new CharacterEvadeDeriveData
+                    {
+                        layer = 2,
+                    });
                 return true;
             }
             return false;
@@ -60,6 +62,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
         {
             if (base.CheckTransition()) return true;
             
+            if (phase == EActionPhase.Active && controller.IsLightAttacking)
+            {
+                FSM.ChangeState(ECharacterState.LightAttack);
+                return true;
+            }
             if (phase == EActionPhase.Recovery && !controller.IsMoving)
             {
                 FSM.ChangeState(ECharacterState.Idle);
@@ -70,7 +77,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
                 FSM.ChangeState(ECharacterState.Walk);
                 return true;
             }
-            
             if (phase == EActionPhase.Cancel && controller.IsMoving)
             {
                 FSM.ChangeState(ECharacterState.Run);

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using ZZZDemo.Runtime.Model.Character.Controller;
 using ZZZDemo.Runtime.Model.Character.View.Animation;
+using ZZZDemo.Runtime.Model.Config;
 using ZZZDemo.Runtime.Model.StateMachine.Character.DeriveData;
 using ZZZDemo.Runtime.Model.Utils;
 using CharacterController = ZZZDemo.Runtime.Model.Character.Controller.CharacterController;
@@ -30,8 +31,8 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             View.Animation.Running.Set(false);
             controller.canTurnBack = true;
             turnBackTimerHandle?.Invalidate();
-            //TODO: config
-            turnBackTimerHandle = controller.timerManager.SetTimer(0.2f, () => { controller.canTurnBack = false; });
+            turnBackTimerHandle = controller.timerManager.SetTimer(GlobalConstants.canTurnBackTimeWindow, 
+                () => { controller.canTurnBack = false; });
         }
         protected override void TickLogic(float deltaTime)
         {
@@ -39,24 +40,18 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 
             if (controller.IsMoving)
                 controller.lastRunDirection = Input.MoveJoyStick.Direction;
-        }
-
-        protected override bool CheckDeriveTransition()
-        {
-            if (base.CheckDeriveTransition()) return true;
-            if (!View.Animation.CheckTurnBack() && controller.IsLightAttacking)
-            {
-                FSM.DeriveState(ECharacterState.LightAttack, 
-                    new CharacterLightAttackDeriveData(1, true));
-                return true;
-            }
-            return false;
+            controller.canRushAttack = !View.Animation.CheckTurnBack();
         }
 
         protected override bool CheckTransition()
         {
             if (base.CheckTransition()) return true;
             
+            if (!View.Animation.CheckTurnBack() && controller.IsLightAttacking)
+            {
+                FSM.ChangeState(ECharacterState.LightAttack);
+                return true;
+            }
             if (!View.Animation.CheckTurnBack() && !controller.IsMoving)
             {
                 FSM.ChangeState(ECharacterState.Idle);

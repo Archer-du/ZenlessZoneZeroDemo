@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using View;
 using ZZZDemo.Runtime.Model.Character.Input;
+using ZZZDemo.Runtime.Model.Config;
 using ZZZDemo.Runtime.Model.StateMachine.Character;
 using ZZZDemo.Runtime.Model.StateMachine.Character.State;
+using ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara;
 using ZZZDemo.Runtime.Model.Utils;
 
 namespace ZZZDemo.Runtime.Model.Character.Controller
@@ -26,23 +28,14 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
         internal Vector2Int lastRunDirection;
         internal bool canTurnBack = false;
         internal bool canEvade = true;
+        internal bool canRushAttack = false;
 
         #endregion
         
-        public CharacterController(IInputHandler inputHandler, IViewHandler viewHandler)
+        internal CharacterController(IInputHandler inputHandler, IViewHandler viewHandler)
         {
             this.input = inputHandler;
             this.view = viewHandler;
-
-            characterFSM = new CharacterStateMachine();
-            characterFSM[ECharacterState.Idle] = new CharacterIdleState(this, characterFSM);
-            characterFSM[ECharacterState.Walk] = new CharacterWalkState(this, characterFSM);
-            characterFSM[ECharacterState.Run] = new CharacterRunState(this, characterFSM);
-            characterFSM[ECharacterState.Evade] = new CharacterEvadeState(this, characterFSM);
-            characterFSM[ECharacterState.LightAttack] = new CharacterLightAttackState(this, characterFSM);
-            characterFSM[ECharacterState.HeavyAttack] = new CharacterHeavyAttackState(this, characterFSM);
-            characterFSM.Initialize(ECharacterState.Idle);
-
             timerManager = new CharacterTimerManager(this);
         }
         
@@ -51,7 +44,9 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             characterFSM.Update(deltaTime);
             timerManager.Update(deltaTime);
         }
-        
+
+        internal void SetControllerFSM(CharacterStateMachine characterFSM) => this.characterFSM = characterFSM;
+
         internal void SmoothRotateTowardsTargetDirection(float deltaTime = 0, float responseTime = 0)
         {
             responseTime = Mathf.Clamp(responseTime, 0, 10);
@@ -59,9 +54,7 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             targetDir = MovementUtils.GetRotationByAxis(
                 MovementUtils.GetRelativeInputAngle(input.MoveJoyStick.Value), Vector3.up) * targetDir;
             float angle = MovementUtils.GetRelativeRotateAngle(view.Movement.GetCharacterForward(), targetDir);
-            // TODO: config
-            const float angleTolerance = 2.5f;
-            if (Mathf.Abs(angle) > angleTolerance)
+            if (Mathf.Abs(angle) > GlobalConstants.smoothRotateAngleTolerance)
             {
                 if (responseTime == 0)
                 {
