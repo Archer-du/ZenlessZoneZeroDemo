@@ -35,7 +35,7 @@ namespace ZZZDemo.Runtime.Behavior.Character
             inputProxy = GetComponent<CharacterInputProxy>();
             viewProxy = GetComponent<CharacterViewProxy>();
             
-            characterController = new CharacterController(inputProxy, viewProxy);
+            // characterController = new CharacterController(inputProxy, viewProxy);
         }
 
         void Start()
@@ -46,5 +46,7 @@ namespace ZZZDemo.Runtime.Behavior.Character
         {
             characterController.Update(Time.deltaTime);
         }
+        
+        public void SetController(CharacterController controller) => this.characterController = controller;
     }
 }

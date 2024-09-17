@@ -40,6 +40,7 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
 
             if (controller.IsMoving)
                 controller.lastRunDirection = Input.MoveJoyStick.Direction;
+            controller.canRushAttack = !View.Animation.CheckTurnBack();
         }
 
         protected override bool CheckTransition()
@@ -48,7 +49,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             
             if (!View.Animation.CheckTurnBack() && controller.IsLightAttacking)
             {
-                controller.rushAttack = true;
                 FSM.ChangeState(ECharacterState.LightAttack);
                 return true;
             }

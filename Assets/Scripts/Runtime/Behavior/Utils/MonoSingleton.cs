@@ -2,7 +2,7 @@
 
 namespace ZZZDemo.Runtime.Behavior.Utils
 {
-    internal class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
+    public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     {
         internal static T Instance { get; private set; }
         

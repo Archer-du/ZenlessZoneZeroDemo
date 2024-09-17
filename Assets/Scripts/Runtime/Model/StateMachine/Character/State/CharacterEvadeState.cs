@@ -38,6 +38,12 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             }
         }
 
+        protected override void TickLogic(float deltaTime)
+        {
+            base.TickLogic(deltaTime);
+            controller.canRushAttack = phase == EActionPhase.Active;
+        }
+
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
@@ -58,7 +64,6 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State
             
             if (phase == EActionPhase.Active && controller.IsLightAttacking)
             {
-                controller.rushAttack = true;
                 FSM.ChangeState(ECharacterState.LightAttack);
                 return true;
             }

@@ -174,6 +174,10 @@ namespace ZZZDemo.Runtime.Behavior.Character.View
         public ICharacterAnimation Animation => characterAnimation;
         private AnimationComponent characterAnimation;
         
+        // TODO: maybe cameraComponent
+        public Transform cameraFollow;
+        public Transform cameraLookAt;
+        
         public void Awake()
         {
             animator ??= GetComponent<Animator>();

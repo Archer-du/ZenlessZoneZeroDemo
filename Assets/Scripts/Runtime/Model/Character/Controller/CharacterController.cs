@@ -28,24 +28,14 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
         internal Vector2Int lastRunDirection;
         internal bool canTurnBack = false;
         internal bool canEvade = true;
-        internal bool rushAttack = false;
+        internal bool canRushAttack = false;
 
         #endregion
         
-        public CharacterController(IInputHandler inputHandler, IViewHandler viewHandler)
+        internal CharacterController(IInputHandler inputHandler, IViewHandler viewHandler)
         {
             this.input = inputHandler;
             this.view = viewHandler;
-
-            characterFSM = new CharacterStateMachine();
-            characterFSM[ECharacterState.Idle] = new CharacterIdleState(this, characterFSM);
-            characterFSM[ECharacterState.Walk] = new CharacterWalkState(this, characterFSM);
-            characterFSM[ECharacterState.Run] = new CharacterRunState(this, characterFSM);
-            characterFSM[ECharacterState.Evade] = new CharacterEvadeState(this, characterFSM);
-            characterFSM[ECharacterState.LightAttack] = new AnbyDemaraLightAttackState(this, characterFSM);
-            characterFSM[ECharacterState.HeavyAttack] = new AnbyDemaraHeavyAttackState(this, characterFSM);
-            characterFSM.Initialize(ECharacterState.Idle);
-
             timerManager = new CharacterTimerManager(this);
         }
         
@@ -54,7 +44,9 @@ namespace ZZZDemo.Runtime.Model.Character.Controller
             characterFSM.Update(deltaTime);
             timerManager.Update(deltaTime);
         }
-        
+
+        internal void SetControllerFSM(CharacterStateMachine characterFSM) => this.characterFSM = characterFSM;
+
         internal void SmoothRotateTowardsTargetDirection(float deltaTime = 0, float responseTime = 0)
         {
             responseTime = Mathf.Clamp(responseTime, 0, 10);

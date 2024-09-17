@@ -16,9 +16,9 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
             base.Enter();
             Input.LightAttackButton.Consume();
             
-            if (controller.rushAttack)
+            if (controller.canRushAttack)
             {
-                controller.rushAttack = false;
+                controller.canRushAttack = false;
                 // TODO: config
                 View.Animation.TransitToState(EAnimationState.RushAttack, 0.05f);
             }
@@ -47,6 +47,11 @@ namespace ZZZDemo.Runtime.Model.StateMachine.Character.State.AnbyDemara
         protected override bool CheckDeriveTransition()
         {
             if (base.CheckDeriveTransition()) return true;
+            // if (phase >= EActionPhase.Cancel && controller.IsEvading)
+            // {
+            //     FSM.ChangeState(ECharacterState.Evade);
+            //     return true;
+            // }
             if (phase == EActionPhase.Cancel 
                 && deriveData.layer == 3 && controller.IsHeavyAttacking)
             {

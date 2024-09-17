@@ -1837,7 +1837,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Anbi_AnimStateMachine
+  m_Name: AnbyDemara_AnimStateMachine
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: WalkBlend
